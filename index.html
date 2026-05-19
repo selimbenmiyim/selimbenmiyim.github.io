@@ -810,7 +810,7 @@ document.getElementById('btn-share').addEventListener('click',()=>{
   const wonGame=usedTries>0&&board[usedTries-1].every(c=>c.classList.contains('ok'));
 
   const text=wonGame
-    ? `I Got today's Lattem in ${usedTries} ${usedTries===1?'try':'tries'}.\n${rows}\nEasy peasy lemon Squeezy!\nWhy dont you try: ${window.location.href}`
+    ? `I Got today's Lattem in ${usedTries} ${usedTries===1?'try':'tries'}.\n${rows}\nEasy peasy lemon squeezy!\nWhy dont you try: ${window.location.href}`
     : `Pfft, Lattem got me today 😫 I couldn't find the word.\n${rows}\nAvenge me! 🔥\nTry it out: ${window.location.href}`;
 
   if(navigator.share){navigator.share({text})}
