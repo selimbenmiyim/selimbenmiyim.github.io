@@ -554,9 +554,9 @@ function getDailyConfig(){
   const doy=Math.floor((now-new Date(now.getFullYear(),0,0))/864e5);
   const seed=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();
   const lengths=[5,6,4,7,5,6,5,4,6,5,7,4,5,6];
-  const times=[60,75,90,45,60,75,60,90,45,75,60,60,90,75];
+  const times=[90,105,120,95,110,100,130,90,115,105,140,95,100,120];
   const len=lengths[doy%lengths.length];
-  const tl=times[doy%times.length];
+  const tl=Math.max(90,times[doy%times.length]);
   const wlist=WORDS[len];
   return{word:wlist[seed%wlist.length],length:len,timeLimit:tl};
 }
