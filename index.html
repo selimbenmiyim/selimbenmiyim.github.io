@@ -381,50 +381,7 @@ html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family
     border-width:1px;box-shadow:0 0 0 0.5px rgba(0,0,0,.08) inset
   }
 }
-.btn-theme{
-  position:absolute;top:calc(18px + env(safe-area-inset-top));left:18px;
-  z-index:2;display:flex;align-items:center;justify-content:center;
-  width:42px;height:42px;border-radius:14px;border:2px solid rgba(255,255,255,.8);
-  background:rgba(255,255,255,.9);color:#2d2d2a;cursor:pointer;transition:transform .15s,background .2s,border-color .2s,color .2s;
-}
-.btn-theme:hover{transform:translateY(-1px)}
-.btn-theme:active{transform:scale(.96)}
-.btn-theme i{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
-body.dark{background:#0b1220;color:#e2e8f0}
-body.dark .scr{background:#0b1220}
-body.dark #s-intro{background:linear-gradient(135deg,#101823 0%,#151a2f 100%)}
-body.dark .intro-bg .grid-bg{background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px)}
-body.dark .logo-tile{background:#111827;border-color:#334155;color:#e2e8f0}
-body.dark .tagline,.dark .badge-label,.dark .rule{color:#cbd5e1}
-body.dark .daily-badge{background:rgba(255,255,255,.04);border-color:#334155}
-body.dark .badge-val{color:#7dd3fc}
-body.dark .btn-play{background:linear-gradient(135deg,#2563eb,#1e40af);box-shadow:0 8px 24px rgba(37,99,235,.25)}
-body.dark .btn-howto{background:rgba(255,255,255,.08);border-color:#334155;color:#e2e8f0}
-body.dark #s-how,#s-game,#s-result{background:#090f1c}
-body.dark .g-header{border-color:#334155}
-body.dark .logo-sm{background:linear-gradient(135deg,#7dd3fc,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-body.dark .try-info{color:#94a3b8}
-body.dark .tmr-bg{stroke:#334155}
-body.dark .tmr-fill{stroke:#7dd3fc}
-body.dark .cell{background:#111827;border-color:#334155;color:#e2e8f0}
-body.dark .cell.has{border-color:#7dd3fc}
-body.dark .mc{background:#111827;border-color:#334155;color:#e2e8f0}
-body.dark .how-ex p{color:#cbd5e1}
-body.dark .rules-box{background:#111827;border-color:#334155}
-body.dark .stat{background:#111827;border-color:#334155}
-body.dark .stat-n{color:#7dd3fc}
-body.dark .res-inner{color:#e2e8f0}
-body.dark .res-bg .res-blob{background:radial-gradient(circle,rgba(34,197,94,.16),transparent 65%)}
-body.dark .btn-share{background:#2563eb;border-color:#2563eb}
-body.dark .btn-back{background:#111827;border-color:#334155;color:#e2e8f0}
-body.dark #msg{background:rgba(15,23,42,.95);color:#e2e8f0;box-shadow:0 4px 12px rgba(37,99,235,.18)}
-body.dark .kkey{background:#111827;border-color:#334155;color:#e2e8f0;box-shadow:none}
-body.dark .kkey.ok{box-shadow:0 2px 8px rgba(75,185,150,.3)}
-body.dark .kkey.here{box-shadow:0 2px 8px rgba(212,165,85,.3)}
-body.dark .kkey.no{box-shadow:none}
-body.dark .btn-theme{background:rgba(255,255,255,.08);border-color:rgba(148,163,184,.4);color:#cbd5e1}
 </style>
-<script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
 </head>
 <body>
 
@@ -435,13 +392,12 @@ body.dark .btn-theme{background:rgba(255,255,255,.08);border-color:rgba(148,163,
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
   </div>
-  <button id="btn-theme" class="btn-theme" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
   <div class="logo-tiles">
     <div class="logo-tile">L</div><div class="logo-tile">A</div>
     <div class="logo-tile">T</div><div class="logo-tile">T</div>
     <div class="logo-tile">E</div><div class="logo-tile">M</div>
   </div>
-  <p class="tagline">Daily Word Game | Lattem</p>
+  <p class="tagline">in Prototype</p>
   <div class="daily-badge">
     <span class="badge-label">Today</span>
     <span class="badge-val" id="daily-info">— letters · — s</span>
@@ -918,25 +874,6 @@ document.getElementById('btn-start-how').onclick=startGame;
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-intro')};
-
-// Theme Toggle
-const themeButton=document.getElementById('btn-theme');
-function renderThemeIcon(dark){
-  if(!themeButton)return;
-  themeButton.innerHTML=`<i data-lucide="${dark?'sun':'moon'}"></i>`;
-  if(window.lucide?.createIcons){lucide.createIcons();}
-}
-function setTheme(dark){
-  document.body.classList.toggle('dark',dark);
-  localStorage.setItem('lattemTheme',dark?'dark':'light');
-  renderThemeIcon(dark);
-}
-if(themeButton){
-  const savedTheme=localStorage.getItem('lattemTheme');
-  const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
-  setTheme(savedTheme!==null?savedTheme==='dark':prefersDark);
-  themeButton.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
-}
 </script>
 </body>
 </html>
