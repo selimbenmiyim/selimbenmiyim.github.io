@@ -556,7 +556,7 @@ document.getElementById('btn-share').addEventListener('click',()=>{
   const rows=board.slice(0,usedTries).map(row=>
     row.map(c=>c.classList.contains('ok')?'🟩':c.classList.contains('here')?'🟨':'⬛').join('')
   ).join('\n');
-  const text=`LATTEM — ${length} harf\n${rows}\nlattem.app`;
+  const text=`This is my stats on Lattem!  ${length} harf\n${rows}\nLets see your moves now!`;
   if(navigator.share){navigator.share({text})}
   else{navigator.clipboard.writeText(text).then(()=>msg('Kopyalandı! ✓'))}
 });
