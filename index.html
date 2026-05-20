@@ -855,23 +855,37 @@ function animateLogoTiles(){
   const tiles=Array.from(document.querySelectorAll('.logo-tile'));
   if(!tiles.length)return;
   const classes=['anim-ok','anim-here','anim-no'];
-  tiles.forEach(t=>{t.classList.remove(...classes,'anim-pop');t.style.animationDelay=''});
-  const used=[];
-  while(used.length<3){
+  const chosen=[];
+  while(chosen.length<3){
     const idx=Math.floor(Math.random()*tiles.length);
-    if(!used.includes(idx))used.push(idx);
+    if(!chosen.includes(idx)) chosen.push(idx);
   }
-  used.forEach((idx,i)=>{
-    const tile=tiles[idx];
+  const activeTiles=chosen.map(i=>tiles[i]);
+  activeTiles.forEach((tile,i)=>{
+    tile.classList.remove(...classes);
     const cls=classes[Math.floor(Math.random()*classes.length)];
     tile.classList.add(cls,'anim-pop');
-    tile.style.animationDelay=`${i*80}ms`;
+    tile.style.animationDelay=`${i*90}ms`;
   });
-  setTimeout(()=>tiles.forEach(t=>{t.classList.remove(...classes,'anim-pop');t.style.animationDelay='';}),1200);
+
+  setTimeout(()=>{
+    activeTiles.forEach(tile=>{
+      tile.classList.remove('anim-pop');
+      tile.style.animationDelay='';
+    });
+    setTimeout(()=>activeTiles.forEach(tile=>tile.classList.remove(...classes)),180);
+  },1200);
+
+  scheduleLogoAnimation();
+}
+
+function scheduleLogoAnimation(){
+  const delay=4200+Math.random()*2600;
+  window.__logoAnimationTimer&&clearTimeout(window.__logoAnimationTimer);
+  window.__logoAnimationTimer=setTimeout(animateLogoTiles,delay);
 }
 
 animateLogoTiles();
-setInterval(animateLogoTiles,2400);
 
 // Responsive Adjustments
 let resizeTimer;
