@@ -30,7 +30,13 @@ html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family
   width:56px;height:66px;display:flex;align-items:center;justify-content:center;
   font-family:'DM Mono',monospace;font-size:26px;font-weight:500;
   background:#fff;border:2px solid #e8e4dd;border-radius:12px;color:#2d2d2a;
-  animation:tile-drop .55s cubic-bezier(.34,1.56,.64,1) both}
+  animation:tile-drop .55s cubic-bezier(.34,1.56,.64,1) both;
+  transition:background .2s,border-color .2s,color .2s,box-shadow .2s,transform .2s;
+}
+.logo-tile.anim-ok{background:#4bb996;border-color:#4bb996;color:#fff;box-shadow:0 12px 22px rgba(75,185,150,.25)}
+.logo-tile.anim-here{background:#d4a555;border-color:#d4a555;color:#fff;box-shadow:0 12px 22px rgba(212,165,85,.22)}
+.logo-tile.anim-no{background:#e8e4dd;border-color:#d4d4ce;color:#a0a09a;box-shadow:0 8px 14px rgba(0,0,0,.08)}
+.logo-tile.anim-pop{animation:tile-pop .4s ease forwards}
 .logo-tile:nth-child(1){animation-delay:.06s;border-color:#7c64d8;color:#7c64d8}
 .logo-tile:nth-child(2){animation-delay:.12s}
 .logo-tile:nth-child(3){animation-delay:.18s;border-color:#42b8a8;color:#42b8a8}
@@ -38,6 +44,7 @@ html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family
 .logo-tile:nth-child(5){animation-delay:.30s}
 .logo-tile:nth-child(6){animation-delay:.36s;border-color:#d97ba8;color:#d97ba8}
 @keyframes tile-drop{from{opacity:0;transform:translateY(-18px) scale(.82)}to{opacity:1;transform:none}}
+@keyframes tile-pop{0%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.08)}100%{transform:translateY(0) scale(1)}}
 
 .tagline{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;color:#8a8a8a;text-transform:uppercase;position:relative;z-index:1;font-weight:400}
 
@@ -842,6 +849,29 @@ function startGame(){
   show('s-game');
   setTimeout(startTimer,350);
 }
+
+// Logo animation
+function animateLogoTiles(){
+  const tiles=Array.from(document.querySelectorAll('.logo-tile'));
+  if(!tiles.length)return;
+  const classes=['anim-ok','anim-here','anim-no'];
+  tiles.forEach(t=>{t.classList.remove(...classes,'anim-pop');t.style.animationDelay=''});
+  const used=[];
+  while(used.length<3){
+    const idx=Math.floor(Math.random()*tiles.length);
+    if(!used.includes(idx))used.push(idx);
+  }
+  used.forEach((idx,i)=>{
+    const tile=tiles[idx];
+    const cls=classes[Math.floor(Math.random()*classes.length)];
+    tile.classList.add(cls,'anim-pop');
+    tile.style.animationDelay=`${i*80}ms`;
+  });
+  setTimeout(()=>tiles.forEach(t=>{t.classList.remove(...classes,'anim-pop');t.style.animationDelay='';}),1200);
+}
+
+animateLogoTiles();
+setInterval(animateLogoTiles,2400);
 
 // Responsive Adjustments
 let resizeTimer;
