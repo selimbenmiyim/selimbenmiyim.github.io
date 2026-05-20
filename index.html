@@ -875,9 +875,15 @@ document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-intro')};
 </script>
-<script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+<script>
+import { createIcons, timer } from 'lucide';
+
+createIcons({
+  icons: {
+    timer
+  }
+});
+</script>
+
 </body>
 </html>
