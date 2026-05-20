@@ -400,7 +400,7 @@ html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family
   <p class="tagline">in Prototype</p>
   <div class="daily-badge">
     <span class="badge-label">Today</span>
-    <span class="badge-val" id="daily-info">— letters · — s <i data-lucide="timer"></i></span>
+    <span class="badge-val" id="daily-info">— letters · — s</span>
   </div>
   <button class="btn-play" id="btn-play" aria-label="Start game">Play →</button>
   <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
@@ -875,15 +875,5 @@ document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-intro')};
 </script>
-<script>
-import { createIcons, timer } from 'lucide';
-
-createIcons({
-  icons: {
-    timer
-  }
-});
-</script>
-
 </body>
 </html>
