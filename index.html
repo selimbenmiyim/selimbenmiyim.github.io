@@ -6,9 +6,86 @@
 <title>Lattem | Main game</title>
 <link rel="icon" type="image/png" href="FaviconDark.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow:hidden;touch-action:manipulation}
+html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow:hidden;touch-action:manipulation;transition:background .25s,color .25s}
+
+/* ── DARK MODE ── */
+body.dark{background:#111110;color:#e8e4dd}
+body.dark .scr{color:#e8e4dd}
+
+/* Intro screen */
+body.dark #s-intro{background:linear-gradient(135deg,#111110 0%,#1a1917 100%)}
+body.dark .grid-bg{background-image:linear-gradient(rgba(120,100,210,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(120,100,210,.07) 1px,transparent 1px)}
+body.dark .logo-tile{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .logo-tile:nth-child(1){border-color:#7c64d8;color:#7c64d8}
+body.dark .logo-tile:nth-child(3){border-color:#42b8a8;color:#42b8a8}
+body.dark .logo-tile:nth-child(4){border-color:#d4a555;color:#d4a555}
+body.dark .logo-tile:nth-child(6){border-color:#d97ba8;color:#d97ba8}
+body.dark .tagline{color:#5a5a5a}
+body.dark .daily-badge{background:#1e1d1b;border-color:#2e2d2a}
+body.dark .badge-label{color:#5a5a5a}
+body.dark .btn-howto{background:rgba(30,29,27,.6);border-color:#2e2d2a;color:#e8e4dd}
+body.dark .btn-howto:hover{border-color:#7c64d8;background:#1e1d1b}
+
+/* How to play */
+body.dark #s-how{background:#111110}
+body.dark .how-top h2{color:#e8e4dd}
+body.dark .mc{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .how-ex p{color:#8a8a8a}
+body.dark .rules-box{background:#1a1917;border-color:#2e2d2a}
+body.dark .rule{color:#8a8a8a}
+body.dark .btn-back{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .btn-back:hover{background:#252422;border-color:#7c64d8}
+
+/* Game screen */
+body.dark #s-game{background:#111110}
+body.dark .g-header{border-bottom-color:#2e2d2a}
+body.dark .try-info{color:#5a5a5a}
+body.dark .tmr-bg{stroke:#2e2d2a}
+body.dark #tmr-num{color:#e8e4dd}
+body.dark .cell{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .cell.has{border-color:#7c64d8}
+body.dark .cell.no{background:#252422;border-color:#2e2d2a;color:#5a5a5a}
+body.dark .kkey{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .kkey.no{background:#252422;border-color:#2e2d2a;color:#5a5a5a}
+
+/* Result screen */
+body.dark #s-result{background:#111110}
+body.dark #res-title{color:#e8e4dd}
+body.dark #res-sub{color:#8a8a8a}
+body.dark .stat{background:#1e1d1b;border-color:#2e2d2a}
+body.dark .stat-l{color:#5a5a5a}
+body.dark .next-lbl{color:#5a5a5a}
+body.dark #next-count{color:#e8e4dd}
+
+/* ── DARK MODE TOGGLE BUTTON ── */
+.btn-theme{
+  position:absolute;top:20px;right:20px;z-index:10;
+  width:42px;height:42px;border-radius:12px;
+  background:#fff;border:2px solid #e8e4dd;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s,transform .15s;
+  color:#2d2d2a;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.btn-theme:hover{border-color:#7c64d8;box-shadow:0 4px 12px rgba(124,100,216,.2);transform:scale(1.05)}
+.btn-theme:active{transform:scale(.93)}
+.btn-theme svg{width:18px;height:18px;stroke-width:2;transition:opacity .15s,transform .2s}
+.btn-theme .icon-sun{display:none}
+.btn-theme .icon-moon{display:block}
+body.dark .btn-theme{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+body.dark .btn-theme:hover{border-color:#7c64d8}
+body.dark .btn-theme .icon-sun{display:block}
+body.dark .btn-theme .icon-moon{display:none}
+
+@media(max-width:480px){
+  .btn-theme{width:36px;height:36px;border-radius:10px;top:16px;right:16px}
+  .btn-theme svg{width:16px;height:16px}
+}
+@media(max-width:360px){
+  .btn-theme{width:32px;height:32px;border-radius:8px;top:12px;right:12px}
+  .btn-theme svg{width:14px;height:14px}
+}
 
 /* screens */
 .scr{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
@@ -393,6 +470,13 @@ html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
   </div>
+
+  <!-- Dark Mode Toggle -->
+  <button class="btn-theme" id="btn-theme" aria-label="Toggle dark mode">
+    <i data-lucide="moon" class="icon-moon"></i>
+    <i data-lucide="sun" class="icon-sun"></i>
+  </button>
+
   <div class="logo-tiles">
     <!--
     <div class="logo-tile">L</div><div class="logo-tile">A</div>
@@ -878,6 +962,26 @@ document.getElementById('btn-start-how').onclick=startGame;
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-intro')};
+
+// ── DARK MODE ──
+const DARK_KEY='lattem-dark';
+const btnTheme=document.getElementById('btn-theme');
+
+function applyTheme(dark){
+  document.body.classList.toggle('dark',dark);
+  localStorage.setItem(DARK_KEY,dark?'1':'0');
+}
+
+// Load saved preference
+const saved=localStorage.getItem(DARK_KEY);
+if(saved==='1')applyTheme(true);
+
+btnTheme.addEventListener('click',()=>{
+  applyTheme(!document.body.classList.contains('dark'));
+});
+
+// Init Lucide icons
+lucide.createIcons();
 </script>
 </body>
 </html>
