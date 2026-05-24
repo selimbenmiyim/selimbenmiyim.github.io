@@ -542,6 +542,9 @@ body.dark .btn-theme .icon-moon{display:none}
     <i data-lucide="layout-grid" style="width:18px;height:18px;stroke-width:2.2;opacity:.85"></i>
     Select Game
   </button>
+  <div id="daily-status" style="display:none;text-align:center;font-size:13px;color:#8a8a8a;margin-top:8px;">
+    <span id="daily-status-text"></span>
+  </div>
   <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
 </div>
 
@@ -589,12 +592,12 @@ body.dark .btn-theme .icon-moon{display:none}
   </div>
   <div class="modes-list">
 
-    <!-- Daily Wordle -->
-    <button class="mode-card mode-card--wordle" id="mode-wordle" aria-label="Play Daily Wordle">
+    <!-- Wordle -->
+    <button class="mode-card mode-card--wordle" id="mode-wordle" aria-label="Play Wordle">
       <img src="images/WordleLogo.png" alt="Wordle Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
       <div class="mode-card__info">
-        <div class="mode-card__name">Daily Wordle</div>
-        <div class="mode-card__desc">Guess the word of the day.A new challenge every 24 hours.</div>
+        <div class="mode-card__name">Wordle</div>
+        <div class="mode-card__desc">Choose between Daily and Limitless challenges.</div>
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
@@ -610,6 +613,38 @@ body.dark .btn-theme .icon-moon{display:none}
       </div>
       <span class="soon-pill">Soon</span>
     </div>
+
+  </div>
+</div>
+
+<!-- SELECT WORDLE TYPE -->
+<div id="s-wordle-select" class="scr">
+  <div class="modes-header">
+    <button class="btn-back" id="btn-back-wordle-select" aria-label="Go back">←</button>
+    <span class="modes-title">Choose Wordle Type</span>
+    <div style="width:40px"></div>
+  </div>
+  <div class="modes-list">
+
+    <!-- Daily Wordle -->
+    <button class="mode-card mode-card--wordle" id="mode-daily" aria-label="Play Daily Wordle">
+      <div class="mode-card__icon" style="background:#f0ecfc;font-size:28px;">📅</div>
+      <div class="mode-card__info">
+        <div class="mode-card__name">Daily</div>
+        <div class="mode-card__desc">One puzzle per day. Locked after completion until tomorrow.</div>
+      </div>
+      <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
+    </button>
+
+    <!-- Limitless Wordle -->
+    <button class="mode-card mode-card--wordle" id="mode-limitless" aria-label="Play Limitless Wordle">
+      <div class="mode-card__icon" style="background:#f0ecfc;font-size:28px;">♾️</div>
+      <div class="mode-card__info">
+        <div class="mode-card__name">Limitless</div>
+        <div class="mode-card__desc">Play unlimited puzzles with random words anytime.</div>
+      </div>
+      <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
+    </button>
 
   </div>
 </div>
@@ -746,6 +781,8 @@ let crow=0,ccol=0,cguess=[],board=[],kstate={},
     over=false,tint=null,tleft=timeLimit,usedTries=0;
 
 const CIRC=2*Math.PI*19;
+
+let gameType='daily'; // 'daily' veya 'limitless'
 
 function show(id){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
@@ -889,6 +926,14 @@ function shake(row){
 
 function endGame(won,reason){
   over=true;stopTimer();
+  
+  // Daily mode'da oyun oynandı olarak işaretle
+  if(gameType==='daily'&&(won||reason==='guess'||reason==='time')){
+    const now=new Date();
+    const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    localStorage.setItem(`daily-played-${today}`,'1');
+  }
+  
   const elapsed=timeLimit-tleft;
   const score=won?(tleft*10+(6-usedTries)*50):0;
   if(won)setTimeout(confetti,200);
@@ -956,6 +1001,28 @@ function confetti(){
 }
 
 function startGame(){
+  // Daily mode'da kilitli olup olmadığını kontrol et
+  if(gameType==='daily'){
+    const now=new Date();
+    const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    const played=localStorage.getItem(`daily-played-${today}`);
+    if(played==='1'){
+      msg('You already played today!',2000);
+      return;
+    }
+    word=CFG.word;
+    length=CFG.length;
+    timeLimit=CFG.timeLimit;
+  } else {
+    // Limitless mode'da rastgele kelime seç
+    const allLengths=Object.keys(WORDS).map(Number);
+    const randomLength=allLengths[Math.floor(Math.random()*allLengths.length)];
+    const wordList=WORDS[randomLength];
+    word=wordList[Math.floor(Math.random()*wordList.length)];
+    length=randomLength;
+    timeLimit=120; // Limitless mode için default süre
+  }
+  
   over=false;crow=0;ccol=0;cguess=[];kstate={};
   tleft=timeLimit;usedTries=0;
   document.getElementById('try-num').textContent='1';
@@ -984,13 +1051,16 @@ document.addEventListener('keydown',e=>{
 });
 
 // Navigation
-document.getElementById('btn-start-how').onclick=startGame;
+document.getElementById('btn-start-how').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-modes')};
 document.getElementById('btn-select-game').onclick=()=>show('s-modes');
 document.getElementById('btn-back-modes').onclick=()=>show('s-intro');
-document.getElementById('mode-wordle').onclick=startGame;
+document.getElementById('mode-wordle').onclick=()=>show('s-wordle-select');
+document.getElementById('btn-back-wordle-select').onclick=()=>show('s-modes');
+document.getElementById('mode-daily').onclick=()=>{gameType='daily';startGame()};
+document.getElementById('mode-limitless').onclick=()=>{gameType='limitless';startGame()};
 
 // Dark Mode
 const DARK_KEY='lattem-dark';
@@ -1003,7 +1073,33 @@ const saved=localStorage.getItem(DARK_KEY);
 if(saved==='1')applyTheme(true);
 btnTheme.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
 
-// Lucide icons
+// Update Daily Status
+function updateDailyStatus(){
+  const now=new Date();
+  const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const played=localStorage.getItem(`daily-played-${today}`);
+  const statusEl=document.getElementById('daily-status');
+  const statusTxt=document.getElementById('daily-status-text');
+  
+  if(played==='1'){
+    statusEl.style.display='block';
+    // Yarın saat 00:00'a kadar kalan zamanı hesapla
+    const tom=new Date(now);
+    tom.setDate(tom.getDate()+1);
+    tom.setHours(0,0,0,0);
+    const d=tom-now;
+    const h=Math.floor(d/36e5);
+    const m=Math.floor(d%36e5/6e4);
+    statusTxt.textContent=`Daily locked. Back in ${h}h ${m}m`;
+  } else {
+    statusEl.style.display='none';
+  }
+}
+
+updateDailyStatus();
+setInterval(updateDailyStatus,60000); // Her dakikada güncelle
+
+// Lucide icon
 lucide.createIcons();
 </script>
 </body>
