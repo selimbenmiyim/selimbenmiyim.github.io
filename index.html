@@ -100,7 +100,10 @@ body.dark .btn-theme .icon-moon{display:none}
 .scr.on{display:flex}
 
 /* start screen */
-#s-intro{background:linear-gradient(135deg,#fafaf8 0%,#f5f3f0 100%);gap:40px}
+#s-intro{background:linear-gradient(135deg,#fafaf8 0%,#f5f3f0 100%);gap:24px}
+#s-intro{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.intro-content{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:500px}
+.buttons-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .intro-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .grid-bg{position:absolute;inset:0;
   background-image:linear-gradient(rgba(120,100,210,.04) 1px,transparent 1px),
@@ -108,6 +111,10 @@ body.dark .btn-theme .icon-moon{display:none}
   background-size:52px 52px}
 
 .logo-tiles{display:flex;gap:7px;position:relative;z-index:1}
+.intro-content{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:500px;position:relative;z-index:1}
+.buttons-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;width:100%}
+.buttons-row .btn-select-game,
+.buttons-row .btn-howto{flex:1;min-width:140px;max-width:220px}
 .logo-tile{
   width:56px;height:66px;display:flex;align-items:center;justify-content:center;
   font-family:'DM Mono',monospace;font-size:26px;font-weight:500;
@@ -411,12 +418,16 @@ body.dark .btn-theme .icon-moon{display:none}
 }
 @media(max-width:480px){
   .scr{padding:max(env(safe-area-inset-top),12px) max(env(safe-area-inset-right),12px) max(env(safe-area-inset-bottom),12px) max(env(safe-area-inset-left),12px)}
-  #s-intro{gap:24px;padding:16px}
+  #s-intro{gap:18px;padding:16px}
+  .intro-content{gap:16px}
   .logo-tiles{gap:4px}
   .logo-tile{width:44px;height:52px;font-size:20px}
   .tagline{font-size:10px}
   .daily-badge{padding:9px 18px;gap:8px;border-width:1.5px}
   .badge-val{font-size:11px}
+  .buttons-row{gap:10px}
+  .buttons-row .btn-select-game,
+  .buttons-row .btn-howto{flex:1;min-width:120px;max-width:calc(50% - 5px)}
   .btn-play{padding:14px 32px;font-size:14px;gap:8px}
   .btn-select-game{padding:14px 32px;font-size:14px;gap:8px}
   .btn-howto{padding:10px 20px;font-size:13px}
@@ -443,13 +454,17 @@ body.dark .btn-theme .icon-moon{display:none}
 }
 @media(max-width:360px){
   .scr{padding:max(env(safe-area-inset-top),10px) max(env(safe-area-inset-right),10px) max(env(safe-area-inset-bottom),10px) max(env(safe-area-inset-left),10px)}
-  #s-intro{gap:20px;padding:12px}
+  #s-intro{gap:16px;padding:12px}
+  .intro-content{gap:14px}
   .logo-tiles{gap:3px}
   .logo-tile{width:40px;height:48px;font-size:18px;border-radius:6px}
   .tagline{font-size:9px;letter-spacing:.08em}
   .daily-badge{padding:8px 14px;gap:6px}
   .badge-label{font-size:9px}
   .badge-val{font-size:10px}
+  .buttons-row{gap:8px}
+  .buttons-row .btn-select-game,
+  .buttons-row .btn-howto{min-width:100px;flex:1}
   .btn-play{padding:12px 28px;font-size:13px}
   .btn-select-game{padding:12px 28px;font-size:13px}
   .btn-howto{padding:9px 16px;font-size:12px}
@@ -489,16 +504,22 @@ body.dark .btn-theme .icon-moon{display:none}
 }
 @media(max-width:768px) and (orientation:landscape){
   .scr{justify-content:center;padding:10px}
-  #s-intro{gap:16px;padding:12px}
+  #s-intro{gap:14px;padding:12px}
+  .intro-content{gap:12px}
   .logo-tiles{gap:4px}
   .logo-tile{width:42px;height:50px;font-size:18px}
+  .buttons-row{gap:10px}
+  .buttons-row .btn-select-game,
+  .buttons-row .btn-howto{flex:1;min-width:110px}
   .btn-play,.btn-howto,.btn-select-game{padding:10px 24px;font-size:13px}
   #s-how{max-height:100vh;overflow-y:auto;padding:12px}
   .board-wrap{max-height:50vh}
   #s-result{padding:16px}
 }
 @media(max-height:500px){
-  #s-intro{gap:16px;padding:12px}
+  #s-intro{gap:14px;padding:12px}
+  .intro-content{gap:12px}
+  .buttons-row{gap:10px}
   .btn-play{padding:12px 32px;font-size:13px}
   .btn-select-game{padding:12px 32px;font-size:13px}
   .btn-howto{padding:9px 20px}
@@ -530,22 +551,26 @@ body.dark .btn-theme .icon-moon{display:none}
     <i data-lucide="sun" class="icon-sun"></i>
   </button>
 
-  <div class="logo-tiles">
-    <img src="images/Logo.svg" alt="Logo" style="max-width:450px;width:100%;height:auto;border-radius:14px;" />
+  <div class="intro-content">
+    <div class="logo-tiles">
+      <img src="images/Logo.svg" alt="Logo" style="max-width:450px;width:100%;height:auto;border-radius:14px;" />
+    </div>
+    <p class="tagline">Non-competitive gameplay, relaxing and easy.<br>We don't track you or collect your personal data on any server.<br>Lattem just saves your preferences locally just on YOUR device.<br><br>Play free with no ads.</p>
+    <div class="daily-badge">
+      <span class="badge-label">Today</span>
+      <span class="badge-val" id="daily-info">— letters · — s</span>
+    </div>
+    <div class="buttons-row">
+      <button class="btn-select-game" id="btn-select-game" aria-label="Select game mode">
+        <i data-lucide="layout-grid" style="width:18px;height:18px;stroke-width:2.2;opacity:.85"></i>
+        Select Game
+      </button>
+      <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
+    </div>
+    <div id="daily-status" style="display:none;text-align:center;font-size:13px;color:#8a8a8a;margin-top:8px;">
+      <span id="daily-status-text"></span>
+    </div>
   </div>
-  <p class="tagline">Non-competitive gameplay, relaxing and easy.<br>We don't track you or collect your personal data on any server.<br>Lattem just saves your preferences locally just on YOUR device.<br><br>Play free with no ads.</p>
-  <div class="daily-badge">
-    <span class="badge-label">Today</span>
-    <span class="badge-val" id="daily-info">— letters · — s</span>
-  </div>
-  <button class="btn-select-game" id="btn-select-game" aria-label="Select game mode">
-    <i data-lucide="layout-grid" style="width:18px;height:18px;stroke-width:2.2;opacity:.85"></i>
-    Select Game
-  </button>
-  <div id="daily-status" style="display:none;text-align:center;font-size:13px;color:#8a8a8a;margin-top:8px;">
-    <span id="daily-status-text"></span>
-  </div>
-  <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
 </div>
 
 <!-- HOW TO PLAY -->
@@ -628,7 +653,7 @@ body.dark .btn-theme .icon-moon{display:none}
 
     <!-- Daily Wordle -->
     <button class="mode-card mode-card--wordle" id="mode-daily" aria-label="Play Daily Wordle">
-      <div class="mode-card__icon" style="background:#f0ecfc;font-size:28px;">📅</div>
+      <img src="images/Daily Wordle.png" alt="Wordle Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
       <div class="mode-card__info">
         <div class="mode-card__name">Daily</div>
         <div class="mode-card__desc">One puzzle per day. Locked after completion until tomorrow.</div>
