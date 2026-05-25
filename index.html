@@ -104,11 +104,11 @@ body.dark .btn-theme .icon-moon{display:none}
 #s-intro{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
 .intro-content{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:500px}
 .buttons-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.intro-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.intro-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;height:100%;width:100%}
 .grid-bg{position:absolute;inset:0;
   background-image:linear-gradient(rgba(120,100,210,.04) 1px,transparent 1px),
                    linear-gradient(90deg,rgba(120,100,210,.04) 1px,transparent 1px);
-  background-size:52px 52px}
+  background-size:52px 52px;width:100%;height:100%}
 
 .logo-tiles{display:flex;gap:7px;position:relative;z-index:1}
 .intro-content{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:500px;position:relative;z-index:1}
@@ -557,12 +557,12 @@ body.dark .btn-theme .icon-moon{display:none}
     </div>
     <p class="tagline">Non-competitive gameplay, relaxing and easy.<br>We don't track you or collect your personal data on any server.<br>Lattem just saves your preferences locally just on YOUR device.<br><br>Play free with no ads.</p>
     <div class="daily-badge">
-      <span class="badge-label">Today</span>
-      <span class="badge-val" id="daily-info">— letters · — s</span>
+      <span class="badge-label">Today's wordle has</span>
+      <span class="badge-val" id="daily-info">— letters and — s</span>
     </div>
     <div class="buttons-row">
       <button class="btn-select-game" id="btn-select-game" aria-label="Select game mode">
-        <i data-lucide="layout-grid" style="width:18px;height:18px;stroke-width:2.2;opacity:.85"></i>
+        <i data-lucide="layout-grid" style="width:25px;height:25px;stroke-width:2.2;opacity:.85"></i>
         Select Game
       </button>
       <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
