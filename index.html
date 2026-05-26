@@ -547,6 +547,8 @@ body.dark .btn-theme .icon-moon{display:none}
 </style>
 </head>
 <body>
+<audio id="ClickSound" src="sounds/Click.mp3" preload="auto"></audio>
+<audio id="HoverSound" src="sounds/Hover.mp3" preload="auto"></audio>
 
 <!-- Start Screen -->
 <div id="s-intro" class="scr on">
@@ -1130,10 +1132,26 @@ function updateDailyStatus(){
 }
 
 updateDailyStatus();
-setInterval(updateDailyStatus,60000); // Her dakikada güncelle
+setInterval(updateDailyStatus,60000);
 
 // Lucide icon
 lucide.createIcons();
+
+// Sound Effects
+const clickSound = document.getElementById('ClickSound');
+const hoverSound = document.getElementById('HoverSound');
+
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', () => {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(e => console.log('Click sound play failed:', e));
+  });
+
+  button.addEventListener('mouseenter', () => {
+    hoverSound.currentTime = 0;
+    hoverSound.play().catch(e => console.log('Hover sound play failed:', e));
+  });
+});
 </script>
 </body>
 </html>
