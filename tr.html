@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"/>
@@ -579,24 +579,24 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
   </button>
 
   <div class="intro-content">
-    <div class="lang-switcher" aria-label="Language selector">
-      <a class="lang-link is-active" href="index.html" aria-current="page">EN</a>
-      <a class="lang-link" href="tr.html">TR</a>
+    <div class="lang-switcher" aria-label="Dil seçici">
+      <a class="lang-link" href="index.html">EN</a>
+      <a class="lang-link is-active" href="tr.html" aria-current="page">TR</a>
     </div>
     <div class="logo-tiles">
       <img src="images/Logo.svg" alt="Logo" style="max-width:450px;width:100%;height:auto;border-radius:14px;" />
     </div>
-    <p class="tagline">Non-competitive gameplay, relaxing and easy.<br>We don't track you or collect your personal data on any server.<br>Lattem just saves your preferences locally just on YOUR device.<br><br>Play free with no ads.</p>
+    <p class="tagline">Rekabetten uzak, rahatlatıcı ve kolay bir oyun.<br>Senin verilerini takip etmiyoruz ve kişisel bilgilerini sunucuda toplamıyoruz.<br>Lattem yalnızca tercihlerini cihazında yerel olarak saklar.<br><br>Reklamsız, ücretsiz oynayın.</p>
     <div class="daily-badge">
-      <span class="badge-label">Today's wordle has</span>
-      <span class="badge-val" id="daily-info">— letters — s</span>
+      <span class="badge-label">Bugünün Wordle'ı</span>
+      <span class="badge-val" id="daily-info">— harf — s</span>
     </div>
     <div class="buttons-row">
-      <button class="btn-select-game" id="btn-select-game" aria-label="Select game mode">
+      <button class="btn-select-game" id="btn-select-game" aria-label="Oyun modunu seç">
         <i data-lucide="layout-grid" style="width:25px;height:25px;stroke-width:2.2;opacity:.85"></i>
-        Select Game
+        Oyun Seç
       </button>
-      <button class="btn-howto" id="btn-howto" aria-label="Learn how to play">How to Play?</button>
+      <button class="btn-howto" id="btn-howto" aria-label="Nasıl oynanır öğren">Nasıl Oynanır?</button>
     </div>
     <div id="daily-status" style="display:none;text-align:center;font-size:13px;color:#8a8a8a;margin-top:8px;">
       <span id="daily-status-text"></span>
@@ -607,53 +607,53 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 <!-- HOW TO PLAY -->
 <div id="s-how" class="scr">
   <div class="how-top how-body" style="margin-bottom:0">
-    <button class="btn-back" id="btn-back-how" aria-label="Go back">←</button>
-    <h2>How to Play?</h2>
+    <button class="btn-back" id="btn-back-how" aria-label="Geri dön">←</button>
+    <h2>Nasıl Oynanır?</h2>
   </div>
   <div class="how-body" style="margin-top:20px">
     <div class="how-ex">
       <div class="mini-row">
         <div class="mc ok">W</div><div class="mc">O</div><div class="mc">R</div><div class="mc">T</div><div class="mc">H</div>
       </div>
-      <p><strong class="c-g">Green</strong> = letter in the correct spot</p>
+      <p><strong class="c-g">Yeşil</strong> = harf doğru yerde</p>
     </div>
     <div class="how-ex">
       <div class="mini-row">
         <div class="mc">H</div><div class="mc here">E</div><div class="mc">L</div><div class="mc">L</div><div class="mc">O</div>
       </div>
-      <p><strong class="c-y">Yellow</strong> = letter in the word but in the wrong spot</p>
+      <p><strong class="c-y">Sarı</strong> = harf kelimede var ama yanlış yerde</p>
     </div>
     <div class="how-ex">
       <div class="mini-row">
         <div class="mc">P</div><div class="mc">O</div><div class="mc no">P</div><div class="mc">P</div><div class="mc">Y</div>
       </div>
-      <p><strong class="c-d">Gray</strong> = letter not in the word</p>
+      <p><strong class="c-d">Gri</strong> = harf kelimede yok</p>
     </div>
     <div class="rules-box">
-      <div class="rule">⏱&nbsp; Find the word before time runs out</div>
-      <div class="rule">🔡&nbsp; A different word length each day</div>
-      <div class="rule">🔄&nbsp; You have 6 guesses</div>
-      <div class="rule">🏆&nbsp; Score = remaining time × 10 + early finish bonus</div>
+      <div class="rule">⏱&nbsp; Süre dolmadan kelimeyi bul</div>
+      <div class="rule">🔡&nbsp; Her gün farklı kelime uzunluğu</div>
+      <div class="rule">🔄&nbsp; 6 tahmin hakkın var</div>
+      <div class="rule">🏆&nbsp; Puan = kalan süre × 10 + erken bitiriş bonusu</div>
     </div>
-    <button class="btn-play" id="btn-start-how" style="align-self:center" aria-label="Start game">Start Playing →</button>
+    <button class="btn-play" id="btn-start-how" style="align-self:center" aria-label="Oyunu başlat">Oyuna Başla →</button>
   </div>
 </div>
 
 <!-- SELECT GAME MODE -->
 <div id="s-modes" class="scr">
   <div class="modes-header">
-    <button class="btn-back" id="btn-back-modes" aria-label="Go back">←</button>
-    <span class="modes-title">Select Game</span>
+    <button class="btn-back" id="btn-back-modes" aria-label="Geri dön">←</button>
+    <span class="modes-title">Oyun Seç</span>
     <div style="width:40px"></div>
   </div>
   <div class="modes-list">
 
     <!-- Wordle -->
-    <button class="mode-card mode-card--wordle" id="mode-wordle" aria-label="Play Wordle">
+    <button class="mode-card mode-card--wordle" id="mode-wordle" aria-label="Wordle oynay">
       <img src="images/WordleLogo.png" alt="Wordle Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
       <div class="mode-card__info">
         <div class="mode-card__name">Wordle</div>
-        <div class="mode-card__desc">Choose between Daily and Limitless challenges.</div>
+        <div class="mode-card__desc">Günlük ve Sınırsız modları arasından seçim yap.</div>
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
@@ -664,10 +664,10 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
         <i data-lucide="lock" style="width:22px;height:22px;stroke-width:2"></i>
       </div>
       <div class="mode-card__info">
-        <div class="mode-card__name">Coming Soon</div>
-        <div class="mode-card__desc">A new game mode is on its way. Stay tuned!</div>
+        <div class="mode-card__name">Yakında</div>
+        <div class="mode-card__desc">Yeni bir oyun modu geliyor. Takipte kal!</div>
       </div>
-      <span class="soon-pill">Soon</span>
+      <span class="soon-pill">Yakında</span>
     </div>
 
   </div>
@@ -676,32 +676,32 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 <!-- SELECT WORDLE TYPE -->
 <div id="s-wordle-select" class="scr">
   <div class="modes-header">
-    <button class="btn-back" id="btn-back-wordle-select" aria-label="Go back">←</button>
-    <span class="modes-title">Choose Wordle Type</span>
+    <button class="btn-back" id="btn-back-wordle-select" aria-label="Geri dön">←</button>
+    <span class="modes-title">Wordle Türünü Seç</span>
     <div style="width:40px"></div>
   </div>
   <div class="modes-list">
 
     <!-- Daily Wordle -->
-    <button class="mode-card mode-card--wordle" id="mode-daily" aria-label="Play Daily Wordle">
+    <button class="mode-card mode-card--wordle" id="mode-daily" aria-label="Günlük Wordle oynay">
       <div class="mode-card__icon" style="background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;width:64px;height:64px;flex-shrink:0;overflow:hidden">
         <img src="images/DailyWordle.png" alt="Wordle Logo" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="mode-card__info">
-        <div class="mode-card__name">Daily</div>
-        <div class="mode-card__desc">One Wordle per day. Locked after completion until tomorrow.</div>
+        <div class="mode-card__name">Günlük</div>
+        <div class="mode-card__desc">Günde bir Wordle. Tamamladıktan sonra yarına kadar kilitlenir.</div>
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
 
     <!-- Limitless Wordle -->
-    <button class="mode-card mode-card--wordle" id="mode-limitless" aria-label="Play Limitless Wordle">
+    <button class="mode-card mode-card--wordle" id="mode-limitless" aria-label="Sınırsız Wordle oynay">
             <div class="mode-card__icon" style="background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;width:64px;height:64px;flex-shrink:0;overflow:hidden">
         <img src="images/LimitlessWordle.png" alt="Wordle Logo" style="width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;">
       </div>
       <div class="mode-card__info">
-        <div class="mode-card__name">Limitless</div>
-        <div class="mode-card__desc">Play unlimited wordles with random words anytime.</div>
+        <div class="mode-card__name">Sınırsız</div>
+        <div class="mode-card__desc">İstediğin zaman, istediğin kadar oyna. Her seferinde rastgele kelimeler</div>
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
@@ -712,10 +712,10 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 <!-- GAME -->
 <div id="s-game" class="scr">
   <div class="g-header">
-    <button class="btn-back" id="btn-back-game" aria-label="Exit game and return to main menu">←</button>
+    <button class="btn-back" id="btn-back-game" aria-label="Oyundan çık ve ana menüye dön">←</button>
     <div style="display:flex;flex-direction:column;align-items:center">
       <div class="logo-sm">LATTEM</div>
-      <div class="try-info">Attempt <span id="try-num">1</span>/6</div>
+      <div class="try-info">Deneme <span id="try-num">1</span>/6</div>
     </div>
     <div class="tmr-wrap">
       <svg viewBox="0 0 48 48" style="width:48px;height:48px">
@@ -735,19 +735,19 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
   <div class="res-bg"><div class="res-blob"></div></div>
   <div class="res-inner">
     <div class="res-emoji" id="r-emoji">🏆</div>
-    <div id="res-title">Congratulations!</div>
-    <div id="res-sub">You found the word!</div>
+    <div id="res-title">Tebrikler!</div>
+    <div id="res-sub">Kelimeyi buldun!</div>
     <div class="word-reveal" id="r-word"></div>
     <div class="stats">
-      <div class="stat"><span class="stat-n" id="r-score">0</span><span class="stat-l">Score</span></div>
-      <div class="stat"><span class="stat-n" id="r-time">—</span><span class="stat-l">Time</span></div>
-      <div class="stat"><span class="stat-n" id="r-tries">—</span><span class="stat-l">Attempts</span></div>
+      <div class="stat"><span class="stat-n" id="r-score">0</span><span class="stat-l">Puan</span></div>
+      <div class="stat"><span class="stat-n" id="r-time">—</span><span class="stat-l">Süre</span></div>
+      <div class="stat"><span class="stat-n" id="r-tries">—</span><span class="stat-l">Deneme</span></div>
     </div>
     <div class="next-wrap">
-      <div class="next-lbl">Next word</div>
+      <div class="next-lbl">Sonraki kelime</div>
       <div id="next-count">00:00:00</div>
     </div>
-    <button class="btn-share" id="btn-share" aria-label="Share result on social">Share Result</button>
+    <button class="btn-share" id="btn-share" aria-label="Sonucu paylaş">Sonucu Paylaş</button>
   </div>
 </div>
 
@@ -1016,10 +1016,10 @@ function endGame(won,reason){
     document.getElementById('r-emoji').textContent=
       won?(usedTries===1?'🔥':usedTries<=3?'🏆':'✅'):'😢';
     document.getElementById('res-title').textContent=
-      won?(usedTries===1?'Unbelievable!':usedTries<=3?'Amazing!':'You found it!'):
-      (reason==='time'?"Time's up":"Out of guesses");
+      won?(usedTries===1?'İnanılmaz!':usedTries<=3?'Harika!':'Kelimeyi buldun!'):
+      (reason==='time'?"Süre bitti":"Tahmin hakkın bitti");
     document.getElementById('res-sub').textContent=
-      won?`You found the ${word.length}-letter word in ${usedTries} attempt(s)`:`Word: ${word}`;
+      won?`${word.length} harfli kelimeyi ${usedTries} denemede buldun`:`Kelime: ${word}`;
     const rw=document.getElementById('r-word');
     rw.innerHTML='';
     word.split('').forEach((l,i)=>{
@@ -1054,10 +1054,10 @@ document.getElementById('btn-share').addEventListener('click',()=>{
   ).join('\n');
   const wonGame=usedTries>0&&board[usedTries-1].every(c=>c.classList.contains('ok'));
   const text=wonGame
-    ?`I Got today's Lattem in ${usedTries} ${usedTries===1?'try':'tries'}.\n${rows}\nEasy peasy lemon squeezy!\nWhy dont you try: ${window.location.href}`
-    :`Pfft, Lattem got me today 😫 I couldn't find the word.\n${rows}\nAvenge me! 🔥\nTry it out: ${window.location.href}`;
+    ?`Bugünün Lattem'ini ${usedTries} ${usedTries===1?'denemede':'denemede'} buldum.\n${rows}\nÇerezlikti!\nSende dene: ${window.location.href}`
+    :`Of ya, Lattem ağır taş çıktı 😫 Kelimeyi bulamadım.\n${rows}\nÖcümü al! 🔥: ${window.location.href}`;
   if(navigator.share){navigator.share({text})}
-  else{navigator.clipboard.writeText(text).then(()=>msg('Copied.'))}
+  else{navigator.clipboard.writeText(text).then(()=>msg('Kopyalandı.'))}
 });
 
 function confetti(){
@@ -1164,7 +1164,7 @@ function updateDailyStatus(){
     const d=tom-now;
     const h=Math.floor(d/36e5);
     const m=Math.floor(d%36e5/6e4);
-    statusTxt.textContent=`Daily locked. Back in ${h}h ${m}m`;
+    statusTxt.textContent=`Günlük kilitli. ${h} saat ${m} dakika içinde tekrar açılacak`;
   } else {
     statusEl.style.display='none';
   }
