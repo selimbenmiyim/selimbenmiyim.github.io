@@ -1005,7 +1005,7 @@ function endGame(won,reason){
   if(gameType==='daily'&&(won||reason==='guess'||reason==='time')){
     const now=new Date();
     const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-    localStorage.setItem(`daily-played-${today}`,'1');
+    localStorage.setItem(LAST_DAILY_KEY,today);
   }
   
   const elapsed=timeLimit-tleft;
@@ -1079,8 +1079,8 @@ function startGame(){
   if(gameType==='daily'){
     const now=new Date();
     const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-    const played=localStorage.getItem(`daily-played-${today}`);
-    if(played==='1'){
+    const played=localStorage.getItem(LAST_DAILY_KEY);
+    if(played===today){
       msg('You already played today!',2000);
       return;
     }
@@ -1138,6 +1138,7 @@ document.getElementById('mode-limitless').onclick=()=>{gameType='limitless';star
 
 // Dark Mode
 const DARK_KEY='lattem-dark';
+const LAST_DAILY_KEY='lastDaily';
 const btnTheme=document.getElementById('btn-theme');
 function applyTheme(dark){
   document.body.classList.toggle('dark',dark);
@@ -1151,11 +1152,11 @@ btnTheme.addEventListener('click',()=>applyTheme(!document.body.classList.contai
 function updateDailyStatus(){
   const now=new Date();
   const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-  const played=localStorage.getItem(`daily-played-${today}`);
+  const played=localStorage.getItem(LAST_DAILY_KEY);
   const statusEl=document.getElementById('daily-status');
   const statusTxt=document.getElementById('daily-status-text');
   
-  if(played==='1'){
+  if(played===today){
     statusEl.style.display='block';
     // Yarın saat 00:00'a kadar kalan zamanı hesapla
     const tom=new Date(now);
