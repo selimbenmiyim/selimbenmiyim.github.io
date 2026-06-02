@@ -925,11 +925,19 @@ function startTimer(){
 }
 function stopTimer(){clearInterval(tint)}
 
+function toTurkishUpper(ch){
+  if(ch==='i') return 'İ';
+  if(ch==='ı') return 'I';
+  return ch.toUpperCase();
+}
+
 function handleKey(k){
   if(over)return;
   if(k==='⌫'||k==='Backspace'){del()}
   else if(k==='ENTER'||k==='Enter'){submit()}
-  else if(/^[A-ZÇĞİÖŞÜa-zçğışöüşü]$/.test(k)){add(k.toUpperCase())}
+  else if(/^[A-ZÇĞİÖŞÜa-zçğışöüşü]$/.test(k)){
+    add(toTurkishUpper(k));
+  }
 }
 
 function add(l){
