@@ -631,6 +631,18 @@ body.dark #merge-canvas{border-color:#2e2d2a;background:#161514}
 body.dark .merge-btn{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
 body.dark .merge-btn:hover{background:#252422;border-color:#7c64d8}
 
+.merge-beta-note{
+  position:absolute;bottom:14px;left:16px;max-width:280px;
+  padding:10px 12px;background:rgba(255,255,255,.92);
+  border:1px solid #e8e4dd;border-radius:16px;
+  font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.5;
+  color:#3a3a3a;box-shadow:0 10px 24px rgba(0,0,0,.08);z-index:7;
+}
+body.dark .merge-beta-note{
+  background:rgba(22,22,22,.92);border-color:#2e2d2a;color:#e8e4dd;
+}
+@media(max-width:480px){.merge-beta-note{bottom:10px;left:10px;right:10px;max-width:none;font-size:11px;padding:8px 10px;}}
+
 .merge-gameover{
   position:absolute;inset:0;z-index:20;
   display:none;flex-direction:column;align-items:center;justify-content:center;
@@ -758,7 +770,7 @@ body.dark .mode-card--merge .mode-card__badge{background:#1e2530;border-color:#2
       </div>
       <div class="mode-card__info">
         <div class="mode-card__name">Wordle Merge</div>
-        <div class="mode-card__desc">Drop Wordle letter bubbles. Same letters merge — reach M to win!</div>
+        <div class="mode-card__desc">Drop Wordle letters. Same letters merge, reach M to win!</div>
       </div>
       <span class="mode-card__badge" style="background:#e8f4fd;border-color:#90cce8;color:#2a7fab;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1.5px solid;white-space:nowrap;flex-shrink:0;">BETA</span>
     </button>
@@ -884,8 +896,9 @@ body.dark .mode-card--merge .mode-card__badge{background:#1e2530;border-color:#2
 
   <div class="merge-arena-wrap" id="merge-arena-wrap">
     <canvas id="merge-canvas"></canvas>
+    <div class="merge-beta-note">Do you see anything amiss? Relax, this is just beta, bugs are normal :) It will probably be fixed very soon! (probably)</div>
     <div class="merge-gameover" id="merge-gameover">
-      <div class="merge-go-emoji" id="merge-go-emoji">😅</div>
+      <div class="merge-go-emoji" id="merge-go-emoji">☹️</div>
       <div class="merge-go-title" id="merge-go-title">Game Over!</div>
       <div class="merge-go-score" id="merge-go-score">Score: 0</div>
       <div class="merge-go-sub" id="merge-go-sub">The box overflowed! Try again?</div>
@@ -1333,10 +1346,8 @@ document.querySelectorAll('button').forEach(button => {
   });
 });
 
-// ===================== WORDLE MERGE GAME ENGINE =====================
 ;(function(){
 
-  // --- LETTER CHAIN: L(grey) → A(orange) → T(grey) → T(green) → E(orange) → M(green)
   const CHAIN = [
     { letter:'L', color:'#9a9a9a', border:'#7a7a7a', text:'#fff', score:1  },
     { letter:'A', color:'#d4a555', border:'#b88a30', text:'#fff', score:2  },
@@ -1558,6 +1569,20 @@ document.querySelectorAll('button').forEach(button => {
     tryMerge();
   }
 
+  function drawRoundedRect(x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
   // ---- draw ----
   function drawBall(b){
     const isDark = document.body.classList.contains('dark');
@@ -1570,9 +1595,8 @@ document.querySelectorAll('button').forEach(button => {
     ctx.shadowColor = isDark ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.18)';
     ctx.shadowBlur  = 8;
 
-    // circle
-    ctx.beginPath();
-    ctx.arc(0, 0, b.r, 0, Math.PI*2);
+    // rounded square
+    drawRoundedRect(-b.r, -b.r, b.r * 2, b.r * 2, b.r * 0.34);
     ctx.fillStyle = c.color;
     ctx.fill();
     ctx.shadowBlur = 0;
@@ -1611,10 +1635,9 @@ document.querySelectorAll('button').forEach(button => {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // ghost ball
+    // ghost rounded square
     ctx.globalAlpha = 0.35;
-    ctx.beginPath();
-    ctx.arc(x, r+2, r, 0, Math.PI*2);
+    drawRoundedRect(x - r, 2, r * 2, r * 2, r * 0.34);
     ctx.fillStyle = c.color;
     ctx.fill();
     ctx.lineWidth = 2;
@@ -1691,10 +1714,10 @@ document.querySelectorAll('button').forEach(button => {
     cancelAnimationFrame(animId);
     render();
     const el = document.getElementById('merge-gameover');
-    document.getElementById('merge-go-emoji').textContent = '😅';
+    document.getElementById('merge-go-emoji').textContent = '☹️';
     document.getElementById('merge-go-title').textContent = 'Game Over!';
     document.getElementById('merge-go-score').textContent = `Score: ${mergeScore}`;
-    document.getElementById('merge-go-sub').textContent   = 'The box overflowed! Drop letters more carefully.';
+    document.getElementById('merge-go-sub').textContent   = 'The box overflowed! Drop letters more carefully next time.';
     el.classList.add('show');
   }
 
@@ -1706,10 +1729,10 @@ document.querySelectorAll('button').forEach(button => {
     render();
     confetti();
     const el = document.getElementById('merge-gameover');
-    document.getElementById('merge-go-emoji').textContent = '🎉';
-    document.getElementById('merge-go-title').textContent = 'You made M!';
-    document.getElementById('merge-go-score').textContent = `Score: ${mergeScore}`;
-    document.getElementById('merge-go-sub').textContent   = 'You merged all the way to M — amazing! Play again?';
+    document.getElementById('merge-go-emoji').textContent = 'YAY';
+    document.getElementById('merge-go-title').textContent = 'Thats the M!';
+    document.getElementById('merge-go-score').textContent = `Your score: ${mergeScore}`;
+    document.getElementById('merge-go-sub').textContent   = 'You merged all the way to M, thats amazing dude! Another round?';
     el.classList.add('show');
   }
 
