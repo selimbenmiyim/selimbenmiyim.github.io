@@ -565,7 +565,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 }
 
 /* ===================== WORDLE MERGE STYLES ===================== */
-#s-merge{background:#fafaf8;justify-content:flex-start;gap:0;overflow:hidden}
+#s-merge{background:#fafaf8;justify-content:flex-start;gap:0;overflow:hidden;position:relative}
 body.dark #s-merge{background:#111110}
 
 .merge-header{
@@ -883,6 +883,7 @@ body.dark .mode-card--merge .mode-card__badge{background:#1e2530;border-color:#2
       <div class="merge-score-val" id="merge-score">0</div>
     </div>
   </div>
+  <div class="merge-beta-note">Do you see anything amiss? Relax, this is just beta, bugs are normal :) It will probably be fixed very soon! (probably)</div>
 
   <div style="width:100%;max-width:500px;display:flex;align-items:center;justify-content:space-between;padding:8px 16px 4px;flex-shrink:0;">
     <div style="display:flex;gap:6px;align-items:center;">
@@ -898,7 +899,6 @@ body.dark .mode-card--merge .mode-card__badge{background:#1e2530;border-color:#2
 
   <div class="merge-arena-wrap" id="merge-arena-wrap">
     <canvas id="merge-canvas"></canvas>
-    <div class="merge-beta-note">Do you see anything amiss? Relax, this is just beta, bugs are normal :) It will probably be fixed very soon! (probably)</div>
     <div class="merge-gameover" id="merge-gameover">
       <div class="merge-go-emoji" id="merge-go-emoji">☹️</div>
       <div class="merge-go-title" id="merge-go-title">Game Over!</div>
