@@ -748,6 +748,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
       <div id="next-count">00:00:00</div>
     </div>
     <button class="btn-share" id="btn-share" aria-label="Sonucu paylaş">Sonucu Paylaş</button>
+    <button class="btn-share" id="btn-main-menu" aria-label="Ana menüye dön">Ana Menü</button>
   </div>
 </div>
 
@@ -1135,6 +1136,7 @@ document.getElementById('btn-start-how').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-modes')};
+document.getElementById('btn-main-menu').onclick=()=>{stopTimer();show('s-intro')};
 document.getElementById('btn-select-game').onclick=()=>show('s-modes');
 document.getElementById('btn-back-modes').onclick=()=>show('s-intro');
 document.getElementById('mode-wordle').onclick=()=>show('s-wordle-select');

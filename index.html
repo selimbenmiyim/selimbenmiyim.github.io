@@ -748,6 +748,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
       <div id="next-count">00:00:00</div>
     </div>
     <button class="btn-share" id="btn-share" aria-label="Share result on social">Share Result</button>
+    <button class="btn-share" id="btn-main-menu" aria-label="Return to main menu">Main Menu</button>
   </div>
 </div>
 
@@ -1001,7 +1002,6 @@ function shake(row){
 function endGame(won,reason){
   over=true;stopTimer();
   
-  // Daily mode'da oyun oynandı olarak işaretle
   if(gameType==='daily'&&(won||reason==='guess'||reason==='time')){
     const now=new Date();
     const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -1075,7 +1075,6 @@ function confetti(){
 }
 
 function startGame(){
-  // Daily mode'da kilitli olup olmadığını kontrol et
   if(gameType==='daily'){
     const now=new Date();
     const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -1088,13 +1087,12 @@ function startGame(){
     length=CFG.length;
     timeLimit=CFG.timeLimit;
   } else {
-    // Limitless mode'da rastgele kelime seç
     const allLengths=Object.keys(WORDS).map(Number);
     const randomLength=allLengths[Math.floor(Math.random()*allLengths.length)];
     const wordList=WORDS[randomLength];
     word=wordList[Math.floor(Math.random()*wordList.length)];
     length=randomLength;
-    timeLimit=120; // Limitless mode için default süre
+    timeLimit=120;
   }
   
   over=false;crow=0;ccol=0;cguess=[];kstate={};
@@ -1124,11 +1122,11 @@ document.addEventListener('keydown',e=>{
   handleKey(e.key);
 });
 
-// Navigation
 document.getElementById('btn-start-how').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-modes')};
+document.getElementById('btn-main-menu').onclick=()=>{stopTimer();show('s-intro')};
 document.getElementById('btn-select-game').onclick=()=>show('s-modes');
 document.getElementById('btn-back-modes').onclick=()=>show('s-intro');
 document.getElementById('mode-wordle').onclick=()=>show('s-wordle-select');
@@ -1136,7 +1134,6 @@ document.getElementById('btn-back-wordle-select').onclick=()=>show('s-modes');
 document.getElementById('mode-daily').onclick=()=>{gameType='daily';startGame()};
 document.getElementById('mode-limitless').onclick=()=>{gameType='limitless';startGame()};
 
-// Dark Mode
 const DARK_KEY='lattem-dark';
 const LAST_DAILY_KEY='lastDaily';
 const btnTheme=document.getElementById('btn-theme');
@@ -1148,7 +1145,6 @@ const saved=localStorage.getItem(DARK_KEY);
 if(saved==='1')applyTheme(true);
 btnTheme.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
 
-// Update Daily Status
 function updateDailyStatus(){
   const now=new Date();
   const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -1173,10 +1169,8 @@ function updateDailyStatus(){
 updateDailyStatus();
 setInterval(updateDailyStatus,60000);
 
-// Lucide icon
 lucide.createIcons();
 
-// Sound Effects
 const clickSound = document.getElementById('ClickSound');
 const hoverSound = document.getElementById('HoverSound');
 
