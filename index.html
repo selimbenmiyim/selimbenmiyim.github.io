@@ -929,6 +929,7 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
           <div class="m2048-overlay-sub" id="m2048-overlay-sub">Score: 0</div>
           <div class="m2048-overlay-actions">
             <button class="btn-share" id="m2048-overlay-keepgoing">Keep Going</button>
+            <button class="btn-share" id="m2048-overlay-share">Share Result</button>
             <button class="btn-howto" id="m2048-overlay-newgame">New Game</button>
           </div>
         </div>
@@ -1618,16 +1619,19 @@ function g2048ShowOverlay(kind){
   const title=document.getElementById('m2048-overlay-title');
   const sub=document.getElementById('m2048-overlay-sub');
   const keepBtn=document.getElementById('m2048-overlay-keepgoing');
+  const shareBtn=document.getElementById('m2048-overlay-share');
   if(kind==='win'){
     emoji.textContent='🎉';
     title.textContent='You reached 2048!';
     sub.textContent=`Score: ${g2048Score} — keep going for a higher tile`;
     keepBtn.style.display='inline-flex';
+    shareBtn.style.display='none';
   } else {
     emoji.textContent='😶';
     title.textContent='No more moves';
     sub.textContent=`Final score: ${g2048Score}`;
     keepBtn.style.display='none';
+    shareBtn.style.display='inline-flex';
   }
   overlay.classList.add('show');
 }
@@ -1753,6 +1757,16 @@ document.getElementById('mode-2048') && (document.getElementById('mode-2048').on
 document.getElementById('btn-back-2048') && (document.getElementById('btn-back-2048').onclick=()=>{g2048Active=false;show('s-modes')});
 document.getElementById('btn-new-2048') && (document.getElementById('btn-new-2048').onclick=()=>startGame2048());
 document.getElementById('m2048-overlay-keepgoing') && (document.getElementById('m2048-overlay-keepgoing').onclick=()=>g2048HideOverlay());
+document.getElementById('m2048-overlay-share') && (document.getElementById('m2048-overlay-share').onclick=()=>{
+  const text=`DUDE, have you seen Lattem 2048?? This is my score: ${g2048Score}! Can you beat me?\n${window.location.href}`;
+  if(navigator.share){
+    navigator.share({text}).catch(()=>{});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      if(typeof msg==='function')msg('Copied.');
+    }).catch(()=>{});
+  }
+});
 document.getElementById('m2048-overlay-newgame') && (document.getElementById('m2048-overlay-newgame').onclick=()=>startGame2048());
 
 g2048InitTouch();
