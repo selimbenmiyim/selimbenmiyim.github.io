@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"/>
-<title>Lattem Games</title>
+<title>Lattem</title>
 <link rel="icon" type="image/png" href="images/FaviconDark.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow:hidden;touch-action:manipulation;transition:background .25s,color .25s}
+
 
 /* DARK MODE */
 body.dark{background:#111110;color:#e8e4dd}
@@ -77,22 +78,50 @@ body.dark .mode-card--soon .mode-card__icon{background:#1a1917;color:#2e2d2a}
 body.dark .soon-pill{background:#1a1917;color:#3a3a3a;border-color:#252422}
 
 /* DARK MODE TOGGLE */
-.btn-theme{
+.top-controls{
   position:absolute;top:20px;right:20px;z-index:10;
-  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;gap:8px}
+.btn-theme,
+.btn-privacy{
+  height:42px;border-radius:12px;
   background:#fff;border:2px solid #e8e4dd;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s,transform .15s;
   color:#2d2d2a;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.btn-theme:hover{border-color:#7c64d8;box-shadow:0 4px 12px rgba(124,100,216,.2);transform:scale(1.05)}
-.btn-theme:active{transform:scale(.93)}
+.btn-theme:hover,
+.btn-privacy:hover{border-color:#7c64d8;box-shadow:0 4px 12px rgba(124,100,216,.2);transform:scale(1.05)}
+.btn-theme:active,
+.btn-privacy:active{transform:scale(.93)}
+.btn-theme{width:42px}
 .btn-theme svg{width:18px;height:18px;stroke-width:2}
 .btn-theme .icon-sun{display:none}
 .btn-theme .icon-moon{display:block}
-body.dark .btn-theme{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-body.dark .btn-theme:hover{border-color:#7c64d8}
+.btn-privacy{
+  min-width:88px;padding:0 10px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase}
+body.dark .btn-theme,
+body.dark .btn-privacy{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+body.dark .btn-theme:hover,
+body.dark .btn-privacy:hover{border-color:#7c64d8}
 body.dark .btn-theme .icon-sun{display:block}
 body.dark .btn-theme .icon-moon{display:none}
+
+#s-privacy{background:#fafaf8;justify-content:flex-start;overflow-y:auto;padding:20px}
+.privacy-panel{width:100%;max-width:640px;display:flex;flex-direction:column;gap:18px;position:relative}
+.privacy-header{display:flex;align-items:center;gap:12px}
+.privacy-title{font-family:'DM Sans',sans-serif;font-size:28px;font-weight:700;color:#2d2d2a}
+.privacy-card{background:#fff;border:2px solid #e8e4dd;border-radius:18px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:12px}
+.privacy-card h3{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:#2d2d2a}
+.privacy-card p{font-size:14px;line-height:1.6;color:#6a6a6a}
+.privacy-card ul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.privacy-card li{font-size:14px;line-height:1.5;color:#6a6a6a}
+body.dark #s-privacy{background:#111110}
+body.dark .privacy-title{color:#e8e4dd}
+body.dark .privacy-card{background:#1e1d1b;border-color:#2e2d2a}
+body.dark .privacy-card h3{color:#e8e4dd}
+body.dark .privacy-card p,
+body.dark .privacy-card li{color:#8a8a8a}
 
 .lang-switcher{
   display:flex;align-items:center;gap:8px;position:relative;z-index:1;
@@ -112,8 +141,26 @@ body.dark .lang-switcher{background:rgba(30,29,27,.72);border-color:#2e2d2a}
 body.dark .lang-link{color:#9f9b95}
 body.dark .lang-link:hover{color:#e8e4dd}
 body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
-@media(max-width:480px){.btn-theme{width:36px;height:36px;border-radius:10px;top:16px;right:16px}.btn-theme svg{width:16px;height:16px}}
-@media(max-width:360px){.btn-theme{width:32px;height:32px;border-radius:8px;top:12px;right:12px}.btn-theme svg{width:14px;height:14px}}
+@media(max-width:480px){
+  .top-controls{top:16px;right:16px;gap:6px}
+  .btn-theme,.btn-privacy{height:36px;border-radius:10px}
+  .btn-theme{width:36px}
+  .btn-theme svg{width:16px;height:16px}
+  .btn-privacy{min-width:78px;padding:0 8px;font-size:11px}
+  .privacy-title{font-size:24px}
+  .privacy-card{padding:16px;border-radius:14px}
+  .privacy-card h3{font-size:15px}
+  .privacy-card p,.privacy-card li{font-size:13px}
+}
+@media(max-width:360px){
+  .top-controls{top:12px;right:12px;gap:5px}
+  .btn-theme,.btn-privacy{height:32px;border-radius:8px}
+  .btn-theme{width:32px}
+  .btn-theme svg{width:14px;height:14px}
+  .btn-privacy{min-width:72px;font-size:10px}
+  .privacy-title{font-size:22px}
+  .privacy-panel{gap:14px}
+}
 
 /* screens */
 .scr{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
@@ -563,6 +610,105 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
     border-width:1px;box-shadow:0 0 0 0.5px rgba(0,0,0,.08) inset
   }
 }
+/* ===== 2048 MODE (Lattem Games) — additive, does not modify any existing rule ===== */
+
+.mode-card--2048 .mode-card__icon{background:#fbf2e2}
+body.dark .mode-card--2048 .mode-card__icon{background:#2a2316}
+.m2048-mini-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;width:26px;height:26px}
+.m2048-mini-grid span{display:block;border-radius:4px}
+.m2048-mini-grid span:nth-child(1){background:#7c64d8}
+.m2048-mini-grid span:nth-child(2){background:#42b8a8}
+.m2048-mini-grid span:nth-child(3){background:#d4a555}
+.m2048-mini-grid span:nth-child(4){background:#d97ba8}
+
+.m2048-stats-bar{width:100%;max-width:500px;display:flex;gap:12px;justify-content:center;padding:14px 16px 4px}
+
+.m2048-board-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:14px 16px;width:100%}
+
+.m2048-board{position:relative;background:#e8e4dd;border-radius:16px}
+body.dark .m2048-board{background:#2e2d2a}
+
+.m2048-bg-grid{position:absolute;inset:0}
+.m2048-bg-cell{position:absolute;background:#fff;border-radius:10px}
+body.dark .m2048-bg-cell{background:#1e1d1b}
+
+.m2048-tiles{position:absolute;inset:0}
+
+.m2048-tile{
+  position:absolute;display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-weight:700;border-radius:10px;color:#fff;
+  will-change:transform;transition:transform .12s ease-in-out}
+.m2048-tile.spawn{animation:m2048-pop .18s cubic-bezier(.34,1.56,.64,1) both}
+.m2048-tile.merge-pop{animation:m2048-merge-pop .14s ease-in-out both}
+@keyframes m2048-pop{
+  from{transform:translate(var(--tx),var(--ty)) scale(.3)}
+  to{transform:translate(var(--tx),var(--ty)) scale(1)}
+}
+@keyframes m2048-merge-pop{
+  0%{transform:translate(var(--tx),var(--ty)) scale(1)}
+  50%{transform:translate(var(--tx),var(--ty)) scale(1.14)}
+  100%{transform:translate(var(--tx),var(--ty)) scale(1)}
+}
+
+.m2048-v2{background:#f3effb;color:#6b5b95}
+.m2048-v4{background:#e6dbf5;color:#5b4a85}
+.m2048-v8{background:#cdb6ec;color:#fff}
+.m2048-v16{background:#b291e0;color:#fff}
+.m2048-v32{background:#9670d6;color:#fff}
+.m2048-v64{background:#7c64d8;color:#fff}
+.m2048-v128{background:#5fa89c;color:#fff}
+.m2048-v256{background:#42b8a8;color:#fff}
+.m2048-v512{background:#4bb996;color:#fff}
+.m2048-v1024{background:#d4a555;color:#fff}
+.m2048-v2048{background:#d97ba8;color:#fff;box-shadow:0 0 0 2px #d97ba8,0 0 18px rgba(217,123,168,.65)}
+.m2048-vsuper{background:#2d2d2a;color:#d4a555;box-shadow:0 0 0 2px #d4a555,0 0 16px rgba(212,165,85,.5)}
+
+body.dark .m2048-v2{background:#26232f;color:#a796d6}
+body.dark .m2048-v4{background:#332c47;color:#c4b3ec}
+body.dark .m2048-v8{background:#46396a;color:#fff}
+body.dark .m2048-v16{background:#5a4690;color:#fff}
+body.dark .m2048-v32{background:#6b52a8;color:#fff}
+body.dark .m2048-v64{background:#7c64d8;color:#fff}
+body.dark .m2048-v128{background:#2f6b62;color:#fff}
+body.dark .m2048-v256{background:#3a8478;color:#fff}
+body.dark .m2048-v512{background:#3a9678;color:#fff}
+body.dark .m2048-v1024{background:#a8823f;color:#fff}
+body.dark .m2048-v2048{background:#b85f8c;color:#fff;box-shadow:0 0 0 2px #b85f8c,0 0 18px rgba(184,95,140,.6)}
+body.dark .m2048-vsuper{background:#111110;color:#d4a555;box-shadow:0 0 0 2px #d4a555,0 0 16px rgba(212,165,85,.45)}
+
+.m2048-overlay{
+  position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  background:rgba(250,250,248,.88);opacity:0;pointer-events:none;transform:translateY(-6px);
+  transition:opacity .2s,transform .2s}
+.m2048-overlay.show{opacity:1;pointer-events:auto;transform:none}
+body.dark .m2048-overlay{background:rgba(17,17,16,.88)}
+
+.m2048-overlay-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px;text-align:center}
+.m2048-overlay-emoji{font-size:40px;line-height:1}
+.m2048-overlay-title{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:#2d2d2a}
+body.dark .m2048-overlay-title{color:#e8e4dd}
+.m2048-overlay-sub{font-family:'DM Sans',sans-serif;font-size:13px;color:#8a8a8a}
+.m2048-overlay-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+.m2048-hint{font-family:'DM Mono',monospace;font-size:11px;color:#8a8a8a;letter-spacing:.05em;text-align:center;padding:0 16px 14px}
+
+@media(max-width:768px){
+  .m2048-stats-bar{padding:10px 14px 2px;gap:8px}
+  .m2048-overlay-emoji{font-size:34px}
+  .m2048-overlay-title{font-size:17px}
+  .m2048-hint{font-size:10px;padding:0 12px 10px}
+  .m2048-mini-grid{width:22px;height:22px;gap:2px}
+}
+@media(max-width:480px){
+  .m2048-stats-bar{gap:6px}
+  .m2048-overlay-card{padding:14px;gap:8px}
+  .m2048-overlay-emoji{font-size:30px}
+  .m2048-overlay-title{font-size:15px}
+  .m2048-mini-grid{width:20px;height:20px}
+}
+@media(max-width:360px){
+  .m2048-hint{font-size:9px}
+}
 </style>
 </head>
 <body>
@@ -573,10 +719,13 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 <div id="s-intro" class="scr on">
   <div class="intro-bg"><div class="grid-bg"></div></div>
 
-  <button class="btn-theme" id="btn-theme" aria-label="Toggle dark mode">
-    <i data-lucide="moon" class="icon-moon"></i>
-    <i data-lucide="sun" class="icon-sun"></i>
-  </button>
+  <div class="top-controls">
+    <button class="btn-privacy" id="btn-privacy" aria-label="Open privacy policy">Privacy</button>
+    <button class="btn-theme" id="btn-theme" aria-label="Toggle dark mode">
+      <i data-lucide="moon" class="icon-moon"></i>
+      <i data-lucide="sun" class="icon-sun"></i>
+    </button>
+  </div>
 
   <div class="intro-content">
     <div class="lang-switcher" aria-label="Dil seçici">
@@ -586,7 +735,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
     <div class="logo-tiles">
       <img src="images/Logo.svg" alt="Logo" style="max-width:450px;width:100%;height:auto;border-radius:14px;" />
     </div>
-    <p class="tagline">Rekabetten uzak, Rahatlatıcı ve kolay bir oyun.<br>Seni takip etmeyen ve kişisel bilgilerini bir yerde depolamayan.<br>Lattem yalnızca tercihlerini cihazında yerel olarak saklar.<br><br>Tamamen ücretsiz ve reklamsız oynayın.</p>
+    <p class="tagline">Günün berbat mı geçti?<br>Biraz kahve molası al ve Lattem oyunlarının tadını çıkar!<br>(Lattem hala geliştirme aşamasındadır)<br><br>Tamamen ücretsiz ve reklamsız oynayın.</p>
     <div class="daily-badge">
       <span class="badge-label">Bugünün Wordle'ı</span>
       <span class="badge-val" id="daily-info">— harf — s</span>
@@ -601,6 +750,38 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
     <div id="daily-status" style="display:none;text-align:center;font-size:13px;color:#8a8a8a;margin-top:8px;">
       <span id="daily-status-text"></span>
     </div>
+  </div>
+</div>
+
+<div id="s-privacy" class="scr">
+  <div class="privacy-panel">
+    <div class="privacy-header">
+      <button class="btn-back" id="btn-back-privacy" aria-label="Go back">←</button>
+      <h2 class="privacy-title">Gizlilik Politikası</h2>
+    </div>
+    <section class="privacy-card">
+      <h3>Ne topluyoruz</h3>
+      <p>Lattem hiç bir kişisel bilgi toplamaz. Kişisel bilgileriniz (ad, e-posta adresi, konum vb.) toplanmaz. Sadece temalar ve diğer küçük ayarlar cihazınızda yerel olarak saklanır. Verileriniz sunucumuza gönderilmez. Bazı dış servisler (örneğin yazı tipleri veya ikon kütüphaneleri) standart teknik istek verilerini otomatik olarak alabilir.</p>
+    </section>
+    <section class="privacy-card">
+      <h3>Çocuklar</h3>
+      <p>Lattem tüm yaş grupları için tasarlanmıştır ancak ebeveynler çocuklarının uygulama kullanımını denetlemelidir. Tüm uygulamalar gibi, çocuklarının uygulamayı güvenli ve uygun şekilde kullandığından emin olmak önemlidir.</p>
+    </section>
+    <section class="privacy-card">
+      <h3>Üçüncü taraflar</h3>
+      <p>Lattem verilerinizi üçüncü taraflarla satmadığı gibi, paylaşmaz da. Bazı yazı tipleri veya ikon kütüphaneleri, görünüm için dış servislerden otomatik olarak yüklenebilir.</p>
+    </section>
+    <section class="privacy-card">
+      <h3>Seçimleriniz</h3>
+      <p>Yerel tercihleri ve oyun ilerlemesini kaldırmak için her zaman depolanan tarayıcı verilerini silebilirsiniz.</p>
+    </section>
+    <section class="privacy-card">
+      <h3>İletişim</h3>
+      <ul>
+        <li>Lattem tek bir geliştirici tarafından geliştirilmektedir ve hiçbir şirketle ilişiği yoktur.</li>
+        <li>Şu anda herhangi bir kamu iletişim bilgisi mevcut değildir.</li>
+      </ul>
+    </section>
   </div>
 </div>
 
@@ -657,6 +838,19 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
+    <!-- 2048 -->
+    <button class="mode-card mode-card--2048" id="mode-2048" aria-label="Play 2048">
+      <div class="mode-card__icon">
+        <div class="m2048-mini-grid">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="mode-card__info">
+        <div class="mode-card__name">2048</div>
+        <div class="mode-card__desc">Slide and merge tiles to reach 2048.</div>
+      </div>
+      <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
+    </button>
 
     <!-- Coming Soon -->
     <div class="mode-card mode-card--soon" aria-disabled="true" style="cursor:not-allowed;">
@@ -707,6 +901,45 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
     </button>
 
   </div>
+</div>
+<!-- 2048 GAME -->
+<div id="s-2048" class="scr">
+  <div class="g-header">
+    <button class="btn-back" id="btn-back-2048" aria-label="Exit 2048 and return to game select">←</button>
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="logo-sm">LATTEM</div>
+      <div class="try-info">2048</div>
+    </div>
+    <button class="btn-back" id="btn-new-2048" aria-label="Start a new 2048 game">
+      <i data-lucide="rotate-ccw" style="width:18px;height:18px;stroke-width:2.2"></i>
+    </button>
+  </div>
+
+  <div class="m2048-stats-bar">
+    <div class="stat"><span class="stat-n" id="m2048-score">0</span><span class="stat-l">Score</span></div>
+    <div class="stat"><span class="stat-n" id="m2048-best">0</span><span class="stat-l">Best</span></div>
+  </div>
+
+  <div class="m2048-board-wrap">
+    <div class="m2048-board" id="m2048-board">
+      <div class="m2048-bg-grid" id="m2048-bg-grid"></div>
+      <div class="m2048-tiles" id="m2048-tiles"></div>
+      <div class="m2048-overlay" id="m2048-overlay">
+        <div class="m2048-overlay-card">
+          <div class="m2048-overlay-emoji" id="m2048-overlay-emoji">🎉</div>
+          <div class="m2048-overlay-title" id="m2048-overlay-title">You reached 2048!</div>
+          <div class="m2048-overlay-sub" id="m2048-overlay-sub">Score: 0</div>
+          <div class="m2048-overlay-actions">
+            <button class="btn-share" id="m2048-overlay-keepgoing">Keep Going</button>
+            <button class="btn-share" id="m2048-overlay-share">Share Result</button>
+            <button class="btn-howto" id="m2048-overlay-newgame">New Game</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m2048-hint">Swipe or use arrow keys to merge tiles</div>
 </div>
 
 <!-- GAME -->
@@ -1088,7 +1321,7 @@ function startGame(){
     const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
     const played=localStorage.getItem(LAST_DAILY_KEY);
     if(played===today){
-      msg('You already played today!',2000);
+      msg('Bugün zaten oynadın!',2000);
       return;
     }
     word=CFG.word;
@@ -1135,6 +1368,8 @@ document.addEventListener('keydown',e=>{
 document.getElementById('btn-start-how').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
+document.getElementById('btn-privacy').onclick=()=>show('s-privacy');
+document.getElementById('btn-back-privacy').onclick=()=>show('s-intro');
 document.getElementById('btn-back-game').onclick=()=>{stopTimer();show('s-modes')};
 document.getElementById('btn-main-menu').onclick=()=>{stopTimer();show('s-intro')};
 document.getElementById('btn-select-game').onclick=()=>show('s-modes');
@@ -1144,7 +1379,6 @@ document.getElementById('btn-back-wordle-select').onclick=()=>show('s-modes');
 document.getElementById('mode-daily').onclick=()=>{gameType='daily';startGame()};
 document.getElementById('mode-limitless').onclick=()=>{gameType='limitless';startGame()};
 
-// Dark Mode
 const DARK_KEY='lattem-dark';
 const LAST_DAILY_KEY='lastDaily';
 const btnTheme=document.getElementById('btn-theme');
@@ -1156,7 +1390,6 @@ const saved=localStorage.getItem(DARK_KEY);
 if(saved==='1')applyTheme(true);
 btnTheme.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
 
-// Update Daily Status
 function updateDailyStatus(){
   const now=new Date();
   const today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
@@ -1166,7 +1399,6 @@ function updateDailyStatus(){
   
   if(played===today){
     statusEl.style.display='block';
-    // Yarın saat 00:00'a kadar kalan zamanı hesapla
     const tom=new Date(now);
     tom.setDate(tom.getDate()+1);
     tom.setHours(0,0,0,0);
@@ -1200,6 +1432,355 @@ document.querySelectorAll('button').forEach(button => {
     hoverSound.play().catch(e => console.log('Hover sound play failed:', e));
   });
 });
+const M2048_SIZE = 4;
+const M2048_BEST_KEY = 'lattem2048Best';
+
+let g2048Grid, g2048Score = 0, g2048Best = 0, g2048IdSeq = 0;
+let g2048TileById = {};
+let g2048Active = false, g2048Started = false, g2048GameOver = false, g2048WonShown = false;
+let g2048CellPx = 70, g2048GapPx = 10;
+let g2048TouchX = 0, g2048TouchY = 0;
+
+function g2048EmptyGrid(){
+  return Array.from({length:M2048_SIZE},()=>Array(M2048_SIZE).fill(null));
+}
+function g2048Within(r,c){return r>=0&&r<M2048_SIZE&&c>=0&&c<M2048_SIZE}
+function g2048CellAvailable(r,c){return g2048Within(r,c)&&!g2048Grid[r][c]}
+function g2048Vector(dir){
+  return {up:{r:-1,c:0},down:{r:1,c:0},left:{r:0,c:-1},right:{r:0,c:1}}[dir];
+}
+function g2048BuildTraversals(vec){
+  const rows=[],cols=[];
+  for(let i=0;i<M2048_SIZE;i++){rows.push(i);cols.push(i)}
+  if(vec.r===1)rows.reverse();
+  if(vec.c===1)cols.reverse();
+  return {rows,cols};
+}
+function g2048FindFarthest(r,c,vec){
+  let pr=r,pc=c;
+  while(g2048CellAvailable(pr+vec.r,pc+vec.c)){pr+=vec.r;pc+=vec.c}
+  return {farthestR:pr,farthestC:pc,nextR:pr+vec.r,nextC:pc+vec.c};
+}
+function g2048RandomEmptyCell(){
+  const empties=[];
+  for(let r=0;r<M2048_SIZE;r++)for(let c=0;c<M2048_SIZE;c++)if(!g2048Grid[r][c])empties.push([r,c]);
+  if(!empties.length)return null;
+  return empties[Math.floor(Math.random()*empties.length)];
+}
+function g2048ValueClass(v){
+  return v<=2048 ? 'm2048-v'+v : 'm2048-vsuper';
+}
+function g2048HasMovesAvailable(){
+  if(g2048RandomEmptyCell())return true;
+  for(let r=0;r<M2048_SIZE;r++){
+    for(let c=0;c<M2048_SIZE;c++){
+      const tile=g2048Grid[r][c];
+      if(!tile)continue;
+      const right=g2048Within(r,c+1)?g2048Grid[r][c+1]:null;
+      const down=g2048Within(r+1,c)?g2048Grid[r+1][c]:null;
+      if(right&&right.value===tile.value)return true;
+      if(down&&down.value===tile.value)return true;
+    }
+  }
+  return false;
+}
+function g2048MaxValue(){
+  let max=0;
+  for(let r=0;r<M2048_SIZE;r++)for(let c=0;c<M2048_SIZE;c++){
+    if(g2048Grid[r][c])max=Math.max(max,g2048Grid[r][c].value);
+  }
+  return max;
+}
+
+function g2048SpawnTile(){
+  const pos=g2048RandomEmptyCell();
+  if(!pos)return null;
+  const [r,c]=pos;
+  const tile={id:'t'+(g2048IdSeq++),value:Math.random()<0.9?2:4,r,c,merged:false};
+  g2048Grid[r][c]=tile;
+  g2048TileById[tile.id]=tile;
+  return tile;
+}
+
+function g2048Move(dir){
+  const vec=g2048Vector(dir);
+  const {rows,cols}=g2048BuildTraversals(vec);
+  let moved=false;
+  const removedIds=[],poppedIds=[];
+  for(let r=0;r<M2048_SIZE;r++)for(let c=0;c<M2048_SIZE;c++){
+    if(g2048Grid[r][c])g2048Grid[r][c].merged=false;
+  }
+  rows.forEach(r=>{
+    cols.forEach(c=>{
+      const tile=g2048Grid[r][c];
+      if(!tile)return;
+      const {farthestR,farthestC,nextR,nextC}=g2048FindFarthest(r,c,vec);
+      const next=g2048Within(nextR,nextC)?g2048Grid[nextR][nextC]:null;
+      if(next&&next.value===tile.value&&!next.merged){
+        next.value*=2;
+        next.merged=true;
+        g2048Score+=next.value;
+        tile.r=nextR;tile.c=nextC;
+        g2048Grid[r][c]=null;
+        removedIds.push(tile.id);
+        poppedIds.push(next.id);
+        moved=true;
+      } else if(farthestR!==r||farthestC!==c){
+        g2048Grid[farthestR][farthestC]=tile;
+        g2048Grid[r][c]=null;
+        tile.r=farthestR;tile.c=farthestC;
+        moved=true;
+      }
+    });
+  });
+  return {moved,removedIds,poppedIds};
+}
+
+function g2048ComputeMetrics(){
+  const isTiny=window.innerWidth<360;
+  const isSmall=window.innerWidth<480;
+  const isMobile=window.innerWidth<768;
+  let boardPx;
+  if(isTiny)boardPx=Math.min(window.innerWidth-28,window.innerHeight-280,288);
+  else if(isSmall)boardPx=Math.min(window.innerWidth-36,window.innerHeight-300,340);
+  else if(isMobile)boardPx=Math.min(window.innerWidth-44,window.innerHeight-320,380);
+  else boardPx=Math.min(420,window.innerHeight-360);
+  boardPx=Math.max(220,boardPx);
+  const gap=isTiny?6:isSmall?7:isMobile?8:10;
+  const cell=(boardPx-gap*(M2048_SIZE+1))/M2048_SIZE;
+  g2048CellPx=cell;g2048GapPx=gap;
+  return {boardPx,cell,gap};
+}
+
+function g2048PositionEl(el,r,c){
+  const x=g2048GapPx+c*(g2048CellPx+g2048GapPx);
+  const y=g2048GapPx+r*(g2048CellPx+g2048GapPx);
+  el.style.width=g2048CellPx+'px';
+  el.style.height=g2048CellPx+'px';
+  el.style.setProperty('--tx',x+'px');
+  el.style.setProperty('--ty',y+'px');
+  el.style.transform=`translate(${x}px,${y}px)`;
+}
+
+function g2048FontSize(value){
+  const scale=value>=1000?0.32:value>=100?0.37:0.44;
+  return Math.max(13,Math.round(g2048CellPx*scale));
+}
+
+function g2048RenderBgGrid(){
+  const bg=document.getElementById('m2048-bg-grid');
+  bg.innerHTML='';
+  for(let r=0;r<M2048_SIZE;r++){
+    for(let c=0;c<M2048_SIZE;c++){
+      const cell=document.createElement('div');
+      cell.className='m2048-bg-cell';
+      g2048PositionEl(cell,r,c);
+      bg.appendChild(cell);
+    }
+  }
+}
+
+function g2048LayoutBoard(){
+  const {boardPx}=g2048ComputeMetrics();
+  const board=document.getElementById('m2048-board');
+  board.style.width=boardPx+'px';
+  board.style.height=boardPx+'px';
+  g2048RenderBgGrid();
+  Object.keys(g2048TileById).forEach(id=>{
+    const tile=g2048TileById[id];
+    const el=document.getElementById('m2048-tile-'+id);
+    if(!el||!tile)return;
+    const prevTransition=el.style.transition;
+    el.style.transition='none';
+    g2048PositionEl(el,tile.r,tile.c);
+    el.style.fontSize=g2048FontSize(tile.value)+'px';
+    void el.offsetWidth;
+    el.style.transition=prevTransition;
+  });
+}
+
+function g2048CreateTileEl(tile,withSpawnAnim){
+  const tiles=document.getElementById('m2048-tiles');
+  const el=document.createElement('div');
+  el.id='m2048-tile-'+tile.id;
+  el.className='m2048-tile '+g2048ValueClass(tile.value)+(withSpawnAnim?' spawn':'');
+  el.textContent=tile.value;
+  g2048PositionEl(el,tile.r,tile.c);
+  el.style.fontSize=g2048FontSize(tile.value)+'px';
+  tiles.appendChild(el);
+  if(withSpawnAnim){
+    setTimeout(()=>{
+      if(el && el.classList.contains('spawn'))el.classList.remove('spawn');
+    },200);
+  }
+  return el;
+}
+
+function g2048UpdateScoreDisplay(){
+  const scoreEl=document.getElementById('m2048-score');
+  const bestEl=document.getElementById('m2048-best');
+  if(scoreEl)scoreEl.textContent=g2048Score;
+  if(g2048Score>g2048Best){
+    g2048Best=g2048Score;
+    localStorage.setItem(M2048_BEST_KEY,g2048Best);
+  }
+  if(bestEl)bestEl.textContent=g2048Best;
+}
+
+function g2048ShowOverlay(kind){
+  const overlay=document.getElementById('m2048-overlay');
+  const emoji=document.getElementById('m2048-overlay-emoji');
+  const title=document.getElementById('m2048-overlay-title');
+  const sub=document.getElementById('m2048-overlay-sub');
+  const keepBtn=document.getElementById('m2048-overlay-keepgoing');
+  if(kind==='win'){
+    emoji.textContent='🎉';
+    title.textContent='You reached 2048!';
+    sub.textContent=`Score: ${g2048Score} — keep going for a higher tile`;
+    keepBtn.style.display='inline-flex';
+  } else {
+    emoji.textContent='😶';
+    title.textContent='No more moves';
+    sub.textContent=`Final score: ${g2048Score}`;
+    keepBtn.style.display='none';
+  }
+  overlay.classList.add('show');
+}
+function g2048HideOverlay(){
+  document.getElementById('m2048-overlay').classList.remove('show');
+}
+
+function g2048CheckGameState(){
+  if(!g2048WonShown && g2048MaxValue()>=2048){
+    g2048WonShown=true;
+    g2048GameOver=false;
+    if(typeof confetti==='function')confetti();
+    g2048ShowOverlay('win');
+    return;
+  }
+  if(!g2048HasMovesAvailable()){
+    g2048GameOver=true;
+    g2048ShowOverlay('lose');
+  }
+}
+
+function g2048HandleMove(dir){
+  if(!g2048Active||g2048GameOver)return;
+  const overlay=document.getElementById('m2048-overlay');
+  if(overlay&&overlay.classList.contains('show'))return;
+  const {moved,removedIds,poppedIds}=g2048Move(dir);
+  if(!moved)return;
+  Object.keys(g2048TileById).forEach(id=>{
+    const tile=g2048TileById[id];
+    const el=document.getElementById('m2048-tile-'+id);
+    if(!el)return;
+    g2048PositionEl(el,tile.r,tile.c);
+  });
+  g2048UpdateScoreDisplay();
+  setTimeout(()=>{
+    removedIds.forEach(id=>{
+      const el=document.getElementById('m2048-tile-'+id);
+      if(el)el.remove();
+      delete g2048TileById[id];
+    });
+    poppedIds.forEach(id=>{
+      const tile=g2048TileById[id];
+      const el=document.getElementById('m2048-tile-'+id);
+      if(!tile||!el)return;
+      el.textContent=tile.value;
+      el.className='m2048-tile '+g2048ValueClass(tile.value)+' merge-pop';
+      el.style.fontSize=g2048FontSize(tile.value)+'px';
+      setTimeout(()=>{ if(el)el.className='m2048-tile '+g2048ValueClass(tile.value); },150);
+    });
+    const spawned=g2048SpawnTile();
+    if(spawned)g2048CreateTileEl(spawned,true);
+    g2048CheckGameState();
+  },130);
+}
+
+function startGame2048(){
+  g2048Grid=g2048EmptyGrid();
+  g2048Score=0;
+  g2048IdSeq=0;
+  g2048TileById={};
+  g2048GameOver=false;
+  g2048WonShown=false;
+  g2048Started=true;
+  document.getElementById('m2048-tiles').innerHTML='';
+  g2048HideOverlay();
+  g2048LayoutBoard();
+  const t1=g2048SpawnTile();
+  if(t1)g2048CreateTileEl(t1,true);
+  const t2=g2048SpawnTile();
+  if(t2)g2048CreateTileEl(t2,true);
+  g2048UpdateScoreDisplay();
+  if(typeof show==='function')show('s-2048');
+  g2048Active=true;
+}
+
+function openGame2048(){
+  if(!g2048Started||g2048GameOver){
+    startGame2048();
+  } else {
+    if(typeof show==='function')show('s-2048');
+    g2048Active=true;
+    g2048LayoutBoard();
+  }
+}
+
+g2048Best=parseInt(localStorage.getItem(M2048_BEST_KEY)||'0',10);
+
+document.addEventListener('keydown',e=>{
+  if(!g2048Active)return;
+  const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+  if(map[e.key]){e.preventDefault();g2048HandleMove(map[e.key])}
+});
+
+function g2048InitTouch(){
+  const board=document.getElementById('m2048-board');
+  if(!board)return;
+  board.addEventListener('touchstart',e=>{
+    if(!g2048Active)return;
+    const t=e.changedTouches[0];
+    g2048TouchX=t.clientX;g2048TouchY=t.clientY;
+  },{passive:true});
+  board.addEventListener('touchend',e=>{
+    if(!g2048Active)return;
+    const t=e.changedTouches[0];
+    const dx=t.clientX-g2048TouchX,dy=t.clientY-g2048TouchY;
+    const adx=Math.abs(dx),ady=Math.abs(dy);
+    if(Math.max(adx,ady)<24)return;
+    if(adx>ady)g2048HandleMove(dx>0?'right':'left');
+    else g2048HandleMove(dy>0?'down':'up');
+  },{passive:true});
+}
+
+let g2048ResizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(g2048ResizeTimer);
+  g2048ResizeTimer=setTimeout(()=>{
+    const scr=document.getElementById('s-2048');
+    if(scr&&scr.classList.contains('on'))g2048LayoutBoard();
+  },200);
+});
+
+document.getElementById('mode-2048') && (document.getElementById('mode-2048').onclick=()=>openGame2048());
+document.getElementById('btn-back-2048') && (document.getElementById('btn-back-2048').onclick=()=>{g2048Active=false;show('s-modes')});
+document.getElementById('btn-new-2048') && (document.getElementById('btn-new-2048').onclick=()=>startGame2048());
+document.getElementById('m2048-overlay-keepgoing') && (document.getElementById('m2048-overlay-keepgoing').onclick=()=>g2048HideOverlay());
+document.getElementById('m2048-overlay-share') && (document.getElementById('m2048-overlay-share').onclick=()=>{
+  const text=`Lattem 2048'de çok fena bir oyun oynadım kanki! Bak işte puanım: ${g2048Score}! Beni yenebilir misin?\n${window.location.href}`;
+  if(navigator.share){
+    navigator.share({text}).catch(()=>{});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      if(typeof msg==='function')msg('Copied.');
+    }).catch(()=>{});
+  }
+});
+document.getElementById('m2048-overlay-newgame') && (document.getElementById('m2048-overlay-newgame').onclick=()=>startGame2048());
+
+g2048InitTouch();
 </script>
 </body>
 </html>
