@@ -720,7 +720,7 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
   <div class="intro-bg"><div class="grid-bg"></div></div>
 
   <div class="top-controls">
-    <button class="btn-privacy" id="btn-privacy" aria-label="Open privacy policy">Privacy</button>
+    <button class="btn-privacy" id="btn-privacy" aria-label="Open privacy policy">Gizlilik</button>
     <button class="btn-theme" id="btn-theme" aria-label="Toggle dark mode">
       <i data-lucide="moon" class="icon-moon"></i>
       <i data-lucide="sun" class="icon-sun"></i>
@@ -838,20 +838,17 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
-    <!-- 2048 -->
+     <!-- 2048 -->
     <button class="mode-card mode-card--2048" id="mode-2048" aria-label="Play 2048">
       <div class="mode-card__icon">
-        <div class="m2048-mini-grid">
-          <span></span><span></span><span></span><span></span>
-        </div>
+        <img src="images/2048Logo.png" alt="2048 Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
       </div>
       <div class="mode-card__info">
         <div class="mode-card__name">2048</div>
-        <div class="mode-card__desc">Slide and merge tiles to reach 2048.</div>
+        <div class="mode-card__desc">kaydırarak sayıları birleştir ve 2048'e ulaş.</div>
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
-
     <!-- Coming Soon -->
     <div class="mode-card mode-card--soon" aria-disabled="true" style="cursor:not-allowed;">
       <div class="mode-card__icon">
@@ -905,19 +902,19 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
 <!-- 2048 GAME -->
 <div id="s-2048" class="scr">
   <div class="g-header">
-    <button class="btn-back" id="btn-back-2048" aria-label="Exit 2048 and return to game select">←</button>
+    <button class="btn-back" id="btn-back-2048" aria-label="2048'den çık ve oyun seçime dön">←</button>
     <div style="display:flex;flex-direction:column;align-items:center">
       <div class="logo-sm">LATTEM</div>
       <div class="try-info">2048</div>
     </div>
-    <button class="btn-back" id="btn-new-2048" aria-label="Start a new 2048 game">
+    <button class="btn-back" id="btn-new-2048" aria-label="Yeni 2048 oyunu başlat">
       <i data-lucide="rotate-ccw" style="width:18px;height:18px;stroke-width:2.2"></i>
     </button>
   </div>
 
   <div class="m2048-stats-bar">
-    <div class="stat"><span class="stat-n" id="m2048-score">0</span><span class="stat-l">Score</span></div>
-    <div class="stat"><span class="stat-n" id="m2048-best">0</span><span class="stat-l">Best</span></div>
+    <div class="stat"><span class="stat-n" id="m2048-score">0</span><span class="stat-l">Puan</span></div>
+    <div class="stat"><span class="stat-n" id="m2048-best">0</span><span class="stat-l">En İyi</span></div>
   </div>
 
   <div class="m2048-board-wrap">
@@ -927,12 +924,12 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
       <div class="m2048-overlay" id="m2048-overlay">
         <div class="m2048-overlay-card">
           <div class="m2048-overlay-emoji" id="m2048-overlay-emoji">🎉</div>
-          <div class="m2048-overlay-title" id="m2048-overlay-title">You reached 2048!</div>
-          <div class="m2048-overlay-sub" id="m2048-overlay-sub">Score: 0</div>
+          <div class="m2048-overlay-title" id="m2048-overlay-title">2048'e ulaştın!</div>
+          <div class="m2048-overlay-sub" id="m2048-overlay-sub">Puan: 0</div>
           <div class="m2048-overlay-actions">
-            <button class="btn-share" id="m2048-overlay-keepgoing">Keep Going</button>
-            <button class="btn-share" id="m2048-overlay-share">Share Result</button>
-            <button class="btn-howto" id="m2048-overlay-newgame">New Game</button>
+            <button class="btn-share" id="m2048-overlay-keepgoing">Devam Et</button>
+            <button class="btn-share" id="m2048-overlay-share">Sonucu Paylaş</button>
+            <button class="btn-howto" id="m2048-overlay-newgame">Yeni Oyun</button>
           </div>
         </div>
       </div>
