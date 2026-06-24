@@ -708,6 +708,142 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
 @media(max-width:360px){
   .m2048-hint{font-size:9px}
 }
+/* ===== WATER SORT MODE ===== */
+.mode-card--water .mode-card__icon{background:#e8f7f5}
+body.dark .mode-card--water .mode-card__icon{background:#1a2e2b}
+
+#s-water{background:#fafaf8;justify-content:flex-start;gap:0;overflow:hidden}
+body.dark #s-water{background:#111110}
+
+.water-stats-bar{
+  width:100%;max-width:500px;
+  display:flex;align-items:center;justify-content:center;
+  gap:12px;padding:12px 16px 4px;flex-shrink:0}
+
+.water-action-bar{
+  width:100%;max-width:500px;
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;padding:6px 16px 14px;flex-shrink:0}
+.water-action-btn{
+  display:flex;align-items:center;gap:7px;
+  background:#fff;border:2px solid #e8e4dd;border-radius:12px;
+  padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:#2d2d2a;cursor:pointer;
+  transition:border-color .15s,background .15s,box-shadow .15s,transform .1s}
+.water-action-btn:hover{border-color:#7c64d8;box-shadow:0 2px 10px rgba(124,100,216,.15)}
+.water-action-btn:active{transform:scale(.95)}
+.water-action-btn svg{width:15px;height:15px;stroke-width:2.2}
+body.dark .water-action-btn{background:#1e1d1b;border-color:#2e2d2a;color:#e8e4dd}
+body.dark .water-action-btn:hover{border-color:#7c64d8}
+
+.water-board-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  width:100%;padding:8px 16px;overflow:hidden}
+#water-board{display:flex;flex-wrap:wrap;align-content:center;justify-content:center}
+
+/* Tüp: dış tutucu button */
+.water-tube{
+  background:none;border:none;padding:0 4px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  transition:transform .18s cubic-bezier(.34,1.4,.64,1);
+  -webkit-tap-highlight-color:transparent}
+.water-tube.selected{transform:translateY(-14px)}
+.water-tube:active{transform:scale(.96)}
+.water-tube.selected:active{transform:translateY(-14px) scale(.97)}
+
+/* Tüp ağzı */
+.water-tube-lip{
+  flex-shrink:0;
+  border:2px solid rgba(140,130,170,.32);
+  border-bottom:none;
+  border-radius:5px 5px 0 0;
+  background:rgba(220,215,240,.18)}
+body.dark .water-tube-lip{
+  border-color:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04)}
+.water-tube.selected .water-tube-lip{border-color:rgba(124,100,216,.55)}
+
+/* Tüp gövdesi — cam efekti */
+.water-tube-inner{
+  flex-shrink:0;
+  position:relative;
+  display:flex;
+  flex-direction:column-reverse;   /* first-child = görsel alt, last-child = görsel üst */
+  overflow:hidden;
+  border:2px solid rgba(140,130,170,.32);
+  border-top:none;
+  border-radius:0 0 999px 999px;   /* test tüpü pill alt */
+  background:rgba(220,215,240,.14); /* hava boşluğu */
+  box-shadow:inset 3px 0 8px rgba(255,255,255,.18),inset -1px 0 4px rgba(0,0,0,.06)}
+body.dark .water-tube-inner{
+  border-color:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  box-shadow:inset 3px 0 10px rgba(255,255,255,.06),inset -1px 0 5px rgba(0,0,0,.22)}
+.water-tube.selected .water-tube-inner{
+  border-color:rgba(124,100,216,.55);
+  box-shadow:inset 3px 0 8px rgba(255,255,255,.18),0 0 0 1px rgba(124,100,216,.3)}
+
+/* Renk bloğu — bir color-run = tek div, içinde gap yok */
+.water-run{
+  width:100%;
+  flex-shrink:0;
+  transition:height .2s cubic-bezier(.4,0,.2,1)}
+
+/* Cam parlaması — tüp üzerine pseudo-element */
+.water-tube-inner::after{
+  content:'';
+  position:absolute;
+  top:0;left:4px;
+  width:30%;height:100%;
+  background:linear-gradient(90deg,rgba(255,255,255,.14),transparent);
+  pointer-events:none;z-index:2;border-radius:inherit}
+
+/* Overlay */
+.water-overlay{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(250,250,248,.9);
+  opacity:0;pointer-events:none;transform:translateY(-6px);
+  transition:opacity .22s,transform .22s;z-index:20}
+.water-overlay.show{opacity:1;pointer-events:auto;transform:none}
+body.dark .water-overlay{background:rgba(17,17,16,.9)}
+.water-overlay-card{
+  display:flex;flex-direction:column;align-items:center;
+  gap:12px;padding:28px 24px;text-align:center;max-width:320px}
+.water-overlay-emoji{font-size:48px;line-height:1;animation:epop .5s cubic-bezier(.34,1.56,.64,1) both}
+.water-overlay-title{font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;color:#2d2d2a}
+body.dark .water-overlay-title{color:#e8e4dd}
+.water-overlay-sub{font-family:'DM Sans',sans-serif;font-size:14px;color:#8a8a8a}
+.water-overlay-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+
+.water-hint-msg{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(6px);
+  background:#7c64d8;color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  padding:9px 18px;border-radius:10px;
+  opacity:0;pointer-events:none;
+  transition:opacity .18s,transform .18s;
+  white-space:nowrap;z-index:21}
+.water-hint-msg.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.water-loading{
+  font-family:'DM Mono',monospace;font-size:13px;color:#8a8a8a;
+  text-align:center;padding:40px 0;letter-spacing:.05em}
+
+@media(max-width:768px){
+  .water-stats-bar{padding:8px 14px 2px;gap:8px}
+  .water-action-bar{gap:8px;padding:4px 12px 10px}
+  .water-action-btn{padding:8px 12px;font-size:12px}
+  .water-board-wrap{padding:6px 12px}
+  .water-overlay-emoji{font-size:40px}
+  .water-overlay-title{font-size:19px}}
+@media(max-width:480px){
+  .water-action-btn{padding:7px 10px;font-size:11px;border-radius:10px}
+  .water-action-btn svg{width:14px;height:14px}
+  .water-hint-msg{font-size:12px;bottom:76px}}
+@media(max-width:360px){
+  .water-action-bar{gap:6px;padding:4px 8px 6px}
+  .water-action-btn{padding:6px 8px;font-size:10px}
+  .water-hint-msg{font-size:11px}}
 </style>
 </head>
 <body>
@@ -847,6 +983,17 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
+    <!-- Water Sort -->
+    <button class="mode-card mode-card--water" id="mode-water" aria-label="Play Water Sort">
+      <div class="mode-card__icon">
+        <img src="images/SortLogo.png" alt="Water Sort Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
+      </div>
+      <div class="mode-card__info">
+        <div class="mode-card__name">Water Sort</div>
+        <div class="mode-card__desc">Sort colored liquids into matching tubes.</div>
+      </div>
+      <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
+    </button>
 
     <!-- Coming Soon -->
     <div class="mode-card mode-card--soon" aria-disabled="true" style="cursor:not-allowed;">
@@ -936,6 +1083,54 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
   </div>
 
   <div class="m2048-hint">Swipe or use arrow keys to play</div>
+</div>
+<!-- WATER SORT GAME -->
+<div id="s-water" class="scr">
+  <div class="g-header">
+    <button class="btn-back" id="btn-back-water" aria-label="Back to game select">←</button>
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="logo-sm">LATTEM</div>
+      <div class="try-info">Level <span id="water-level-num">1</span></div>
+    </div>
+    <div style="width:36px"></div>
+  </div>
+
+  <div class="water-stats-bar">
+    <div class="stat">
+      <span class="stat-n" id="water-moves">0</span>
+      <span class="stat-l">Moves</span>
+    </div>
+  </div>
+
+  <div class="water-board-wrap">
+    <div id="water-board"></div>
+  </div>
+
+  <div class="water-action-bar">
+    <button class="water-action-btn" id="btn-undo-water">
+      <i data-lucide="undo-2"></i>Undo
+    </button>
+    <button class="water-action-btn" id="btn-restart-water">
+      <i data-lucide="rotate-ccw"></i>Restart
+    </button>
+    <button class="water-action-btn" id="btn-hint-water">
+      <i data-lucide="lightbulb"></i>Hint
+    </button>
+  </div>
+
+  <div class="water-hint-msg" id="water-hint-msg"></div>
+
+  <div class="water-overlay" id="water-overlay">
+    <div class="water-overlay-card">
+      <div class="water-overlay-emoji" id="water-overlay-emoji">🎉</div>
+      <div class="water-overlay-title" id="water-overlay-title">Level Complete!</div>
+      <div class="water-overlay-sub" id="water-overlay-sub">Solved in 0 moves</div>
+      <div class="water-overlay-actions">
+        <button class="btn-share" id="water-overlay-next">Next Level →</button>
+        <button class="btn-howto" id="water-overlay-restart">Play Again</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- GAME -->
@@ -1768,6 +1963,404 @@ document.getElementById('m2048-overlay-share') && (document.getElementById('m204
 document.getElementById('m2048-overlay-newgame') && (document.getElementById('m2048-overlay-newgame').onclick=()=>startGame2048());
 
 g2048InitTouch();
+/* ===== WATER SORT MODE — fully additive, namespaced with water/Water prefixes ===== */
+const WATER_CAPACITY = 4;
+const WATER_LEVEL_KEY = 'lattemWaterLevel';
+const WATER_COLORS = ['#7c64d8','#42b8a8','#d4a555','#d97ba8','#4bb996','#e8705b','#5b8fd9','#e0915a','#a78bdb','#b85f72'];
+
+const WATER_LEVEL_CURVE=[
+  {colors:4,empty:2,scramble:15},
+  {colors:5,empty:2,scramble:20},
+  {colors:6,empty:2,scramble:25},
+  {colors:7,empty:2,scramble:30},
+  {colors:8,empty:2,scramble:35},
+  {colors:9,empty:2,scramble:40},
+  {colors:10,empty:2,scramble:45},
+  {colors:10,empty:1,scramble:50},
+];
+function waterLevelConfig(level){
+  const idx=Math.min(level-1,WATER_LEVEL_CURVE.length-1);
+  return WATER_LEVEL_CURVE[Math.max(0,idx)];
+}
+function waterTopRun(tube){
+  if(!tube.length)return null;
+  const color=tube[tube.length-1];
+  let count=0;
+  for(let i=tube.length-1;i>=0;i--){ if(tube[i]===color)count++; else break; }
+  return {color,count};
+}
+function waterCanPour(tubes,capacity,src,dst){
+  if(src===dst)return false;
+  const s=tubes[src],d=tubes[dst];
+  if(!s.length)return false;
+  if(d.length>=capacity)return false;
+  if(d.length===0)return true;
+  return d[d.length-1]===waterTopRun(s).color;
+}
+function waterApplyPour(tubes,capacity,src,dst){
+  const newTubes=tubes.map(t=>t.slice());
+  const s=newTubes[src],d=newTubes[dst];
+  const topRun=waterTopRun(s);
+  const room=capacity-d.length;
+  const amount=Math.min(topRun.count,room);
+  for(let k=0;k<amount;k++){ s.pop(); d.push(topRun.color); }
+  return {tubes:newTubes,amount,color:topRun.color};
+}
+function waterIsSolved(tubes,capacity){
+  return tubes.every(t=>t.length===0||(t.length===capacity&&t.every(c=>c===t[0])));
+}
+function waterCanonicalKey(tubes){ return tubes.map(t=>t.join(',')).sort().join('|'); }
+function waterGenerateSolved(numColors){ return Array.from({length:numColors},(_,i)=>Array(WATER_CAPACITY).fill(i)); }
+function waterCloneTubes(tubes){ return tubes.map(t=>t.slice()); }
+
+function waterSolve(initialTubes,capacity,opts={}){
+  const maxStates=opts.maxStates||15000;
+  const maxTimeMs=opts.maxTimeMs||150;
+  const startTime=Date.now();
+  if(waterIsSolved(initialTubes,capacity))return {solvable:true,path:[]};
+  const visited=new Set([waterCanonicalKey(initialTubes)]);
+  let queue=[{tubes:initialTubes,path:[]}];
+  let states=1;
+  while(queue.length){
+    if(Date.now()-startTime>maxTimeMs||states>=maxStates)return {solvable:'unknown'};
+    const next=[];
+    for(const node of queue){
+      const {tubes,path}=node;
+      for(let i=0;i<tubes.length;i++){
+        if(!tubes[i].length)continue;
+        for(let j=0;j<tubes.length;j++){
+          if(i===j)continue;
+          if(!waterCanPour(tubes,capacity,i,j))continue;
+          const result=waterApplyPour(tubes,capacity,i,j);
+          const newTubes=result.tubes;
+          if(waterIsSolved(newTubes,capacity))return {solvable:true,path:[...path,{src:i,dst:j}]};
+          const key=waterCanonicalKey(newTubes);
+          if(visited.has(key))continue;
+          visited.add(key);
+          states++;
+          next.push({tubes:newTubes,path:[...path,{src:i,dst:j}]});
+          if(Date.now()-startTime>maxTimeMs||states>=maxStates)return {solvable:'unknown'};
+        }
+      }
+    }
+    queue=next;
+    if(!queue.length)return {solvable:false};
+  }
+  return {solvable:false};
+}
+
+function waterScrambleChunked(numColors,emptyCount,iterations){
+  const tubes=waterGenerateSolved(numColors);
+  for(let e=0;e<emptyCount;e++)tubes.push([]);
+  let guard=0,done=0;
+  while(done<iterations&&guard<iterations*25){
+    guard++;
+    const src=Math.floor(Math.random()*tubes.length);
+    if(!tubes[src].length)continue;
+    const dst=Math.floor(Math.random()*tubes.length);
+    if(dst===src)continue;
+    const room=WATER_CAPACITY-tubes[dst].length;
+    if(room<=0)continue;
+    const topColor=tubes[src][tubes[src].length-1];
+    let run=0;
+    for(let i=tubes[src].length-1;i>=0;i--){ if(tubes[src][i]===topColor)run++; else break; }
+    const maxChunk=Math.min(run,room);
+    if(maxChunk<1)continue;
+    const chunk=1+Math.floor(Math.random()*maxChunk);
+    for(let k=0;k<chunk;k++){ tubes[dst].push(tubes[src].pop()); }
+    done++;
+  }
+  return tubes;
+}
+
+function waterGenerateLevel(level,opts={}){
+  const cfg=waterLevelConfig(level);
+  const maxAttempts=opts.maxAttempts||60;
+  for(let attempt=0;attempt<maxAttempts;attempt++){
+    const tubes=waterScrambleChunked(cfg.colors,cfg.empty,cfg.scramble);
+    if(waterIsSolved(tubes,WATER_CAPACITY))continue;
+    const verify=waterSolve(tubes,WATER_CAPACITY,{maxStates:opts.maxStates||15000,maxTimeMs:opts.maxTimeMs||150});
+    if(verify.solvable===true)return {tubes,solutionPath:verify.path,attempt:attempt+1};
+  }
+  const tubes=waterScrambleChunked(cfg.colors,cfg.empty,Math.max(4,Math.floor(cfg.scramble/4)));
+  return {tubes,solutionPath:[],attempt:maxAttempts,fallback:true};
+}
+
+let gWaterTubes=[],gWaterInitialTubes=[],gWaterLevel=1,gWaterMoves=0;
+let gWaterSelected=null,gWaterUndoStack=[],gWaterAnimating=false,gWaterActive=false;
+let gWaterMetrics={tubeWidth:48,tubeHeight:124,gap:12,segHeight:31};
+
+function waterComputeMetrics(){
+  const isTiny=window.innerWidth<360;
+  const isSmall=window.innerWidth<480;
+  const isMobile=window.innerWidth<768;
+  const availWidth=Math.min(window.innerWidth-32,480);
+  const perRow=isTiny?3:isSmall?4:isMobile?4:6;
+  const gap=isTiny?7:isSmall?9:12;
+  let tubeWidth=Math.floor((availWidth-gap*(perRow-1))/perRow);
+  tubeWidth=Math.max(30,Math.min(tubeWidth,64));
+  const segHeight=Math.max(18,Math.floor(tubeWidth*0.65));
+  const tubeHeight=segHeight*WATER_CAPACITY;
+  gWaterMetrics={tubeWidth,tubeHeight,gap,segHeight};
+}
+
+function waterGetColorRuns(tube){
+  if(!tube.length)return[];
+  const runs=[];
+  let cur=tube[0],cnt=1;
+  for(let i=1;i<tube.length;i++){
+    if(tube[i]===cur){cnt++;}else{runs.push({color:cur,count:cnt});cur=tube[i];cnt=1;}
+  }
+  runs.push({color:cur,count:cnt});
+  return runs;
+}
+
+function waterApplyRunStyles(innerEl){
+  if(!innerEl)return;
+  const runs=Array.from(innerEl.children);
+  runs.forEach((run,i)=>{
+    const isTop=i===runs.length-1;
+    run.style.borderRadius=isTop?'4px 4px 0 0':'0';
+  });
+}
+
+function waterRenderFull(){
+  waterComputeMetrics();
+  const board=document.getElementById('water-board');
+  board.innerHTML='';
+  board.style.gap=gWaterMetrics.gap+'px';
+  const {tubeWidth,tubeHeight,segHeight}=gWaterMetrics;
+  const lipH=Math.max(5,Math.round(tubeWidth*0.12));
+  gWaterTubes.forEach((tube,idx)=>{
+    const tubeEl=document.createElement('button');
+    tubeEl.className='water-tube';
+    tubeEl.id='water-tube-'+idx;
+    tubeEl.setAttribute('aria-label','Tube '+(idx+1));
+    const lip=document.createElement('div');
+    lip.className='water-tube-lip';
+    lip.style.width=tubeWidth+'px';
+    lip.style.height=lipH+'px';
+    const inner=document.createElement('div');
+    inner.className='water-tube-inner';
+    inner.id='water-tube-inner-'+idx;
+    inner.style.width=tubeWidth+'px';
+    inner.style.height=tubeHeight+'px';
+    waterGetColorRuns(tube).forEach(run=>{
+      const div=document.createElement('div');
+      div.className='water-run';
+      div.style.height=(run.count*segHeight)+'px';
+      div.style.background=WATER_COLORS[run.color];
+      div.dataset.color=run.color;
+      inner.appendChild(div);
+    });
+    waterApplyRunStyles(inner);
+    tubeEl.appendChild(lip);
+    tubeEl.appendChild(inner);
+    tubeEl.addEventListener('click',()=>waterTubeClick(idx));
+    tubeEl.addEventListener('mouseenter',()=>{
+      if(typeof hoverSound!=='undefined'){hoverSound.currentTime=0;hoverSound.play().catch(()=>{});}
+    });
+    board.appendChild(tubeEl);
+  });
+  waterUpdateSelectionVisuals();
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+
+function waterUpdateSelectionVisuals(){
+  gWaterTubes.forEach((_,idx)=>{
+    const el=document.getElementById('water-tube-'+idx);
+    if(!el)return;
+    el.classList.toggle('selected',gWaterSelected===idx);
+  });
+}
+
+function waterShakeTube(idx){
+  const el=document.getElementById('water-tube-'+idx);
+  if(!el||typeof el.animate!=='function')return;
+  el.animate([
+    {transform:'translateX(-4px)'},{transform:'translateX(4px)'},
+    {transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}
+  ],{duration:260});
+}
+
+function waterUpdateMovesDisplay(){
+  const el=document.getElementById('water-moves');
+  if(el)el.textContent=gWaterMoves;
+}
+
+function waterPushUndo(){ gWaterUndoStack.push(waterCloneTubes(gWaterTubes)); }
+
+function waterAnimatePour(srcIdx,dstIdx,color,amount,preSrcTopRun,preDstTopRun){
+  gWaterAnimating=true;
+  const segH=gWaterMetrics.segHeight;
+  const srcInner=document.getElementById('water-tube-inner-'+srcIdx);
+  const dstInner=document.getElementById('water-tube-inner-'+dstIdx);
+  // column-reverse: lastElementChild = görsel üst = dökülen kısım
+  if(srcInner&&srcInner.lastElementChild){
+    const remaining=preSrcTopRun.count-amount;
+    srcInner.lastElementChild.style.height=(remaining*segH)+'px';
+  }
+  if(dstInner){
+    const sameColor=preDstTopRun&&preDstTopRun.color===color;
+    if(sameColor&&dstInner.lastElementChild){
+      dstInner.lastElementChild.style.height=((preDstTopRun.count+amount)*segH)+'px';
+    } else {
+      const newRun=document.createElement('div');
+      newRun.className='water-run';
+      newRun.style.height='0px';
+      newRun.style.background=WATER_COLORS[color];
+      newRun.dataset.color=color;
+      dstInner.appendChild(newRun);
+      waterApplyRunStyles(dstInner);
+      requestAnimationFrame(()=>{ newRun.style.height=(amount*segH)+'px'; });
+    }
+  }
+  setTimeout(()=>{
+    if(srcInner&&srcInner.lastElementChild){
+      if(parseFloat(srcInner.lastElementChild.style.height)<1){
+        srcInner.removeChild(srcInner.lastElementChild);
+      }
+    }
+    waterApplyRunStyles(srcInner);
+    waterApplyRunStyles(dstInner);
+    gWaterAnimating=false;
+    if(waterIsSolved(gWaterTubes,WATER_CAPACITY))waterShowWin();
+  },280);
+}
+
+function waterTubeClick(idx){
+  if(gWaterAnimating||!gWaterActive)return;
+  const overlay=document.getElementById('water-overlay');
+  if(overlay&&overlay.classList.contains('show'))return;
+  if(typeof clickSound!=='undefined'){clickSound.currentTime=0;clickSound.play().catch(()=>{});}
+  if(gWaterSelected===null){
+    if(!gWaterTubes[idx].length)return;
+    gWaterSelected=idx;waterUpdateSelectionVisuals();return;
+  }
+  if(gWaterSelected===idx){
+    gWaterSelected=null;waterUpdateSelectionVisuals();return;
+  }
+  if(waterCanPour(gWaterTubes,WATER_CAPACITY,gWaterSelected,idx)){
+    waterPushUndo();
+    const srcIdx=gWaterSelected;
+    const preSrcTopRun=waterTopRun(gWaterTubes[srcIdx]);
+    const preDstTopRun=waterTopRun(gWaterTubes[idx]);
+    const result=waterApplyPour(gWaterTubes,WATER_CAPACITY,srcIdx,idx);
+    gWaterTubes=result.tubes;
+    gWaterMoves++;
+    gWaterSelected=null;
+    waterUpdateSelectionVisuals();
+    waterUpdateMovesDisplay();
+    waterAnimatePour(srcIdx,idx,result.color,result.amount,preSrcTopRun,preDstTopRun);
+  } else {
+    waterShakeTube(idx);
+    gWaterSelected=gWaterTubes[idx].length>0?idx:null;
+    waterUpdateSelectionVisuals();
+  }
+}
+
+function waterHideOverlay(){ document.getElementById('water-overlay').classList.remove('show'); }
+
+function waterShowWin(){
+  gWaterActive=false;
+  if(typeof confetti==='function')confetti();
+  document.getElementById('water-overlay-emoji').textContent='🎉';
+  document.getElementById('water-overlay-title').textContent='Level Complete!';
+  document.getElementById('water-overlay-sub').textContent=`Solved in ${gWaterMoves} move${gWaterMoves===1?'':'s'}`;
+  document.getElementById('water-overlay').classList.add('show');
+}
+
+function waterShowHintMessage(text){
+  const el=document.getElementById('water-hint-msg');
+  if(!el)return;
+  el.textContent=text; el.classList.add('show');
+  clearTimeout(window.__waterHintTimer);
+  window.__waterHintTimer=setTimeout(()=>el.classList.remove('show'),2400);
+}
+
+function waterDoHint(){
+  if(gWaterAnimating||!gWaterActive)return;
+  const result=waterSolve(waterCloneTubes(gWaterTubes),WATER_CAPACITY,{maxStates:8000,maxTimeMs:200});
+  if(result.solvable===true&&result.path.length){
+    const mv=result.path[0];
+    waterShowHintMessage(`Try tube ${mv.src+1} → tube ${mv.dst+1}`);
+    [mv.src,mv.dst].forEach(i=>{
+      const el=document.getElementById('water-tube-'+i);
+      if(el&&typeof el.animate==='function'){
+        el.animate([
+          {boxShadow:'0 0 0 3px rgba(124,100,216,.0)'},
+          {boxShadow:'0 0 0 3px rgba(124,100,216,.65)'},
+          {boxShadow:'0 0 0 3px rgba(124,100,216,.0)'}
+        ],{duration:900,iterations:2});
+      }
+    });
+  } else if(result.solvable===false){
+    waterShowHintMessage('No solution from here, try Undo or a fresh start');
+  } else {
+    waterShowHintMessage('Still thinking, try Undo or explore a bit');
+  }
+}
+
+function waterDoUndo(){
+  if(gWaterAnimating||!gWaterActive||!gWaterUndoStack.length)return;
+  gWaterTubes=gWaterUndoStack.pop();
+  gWaterMoves=Math.max(0,gWaterMoves-1);
+  gWaterSelected=null;
+  waterUpdateMovesDisplay();
+  waterRenderFull();
+}
+
+function waterDoRestart(){
+  if(gWaterAnimating)return;
+  gWaterActive=true;
+  gWaterTubes=waterCloneTubes(gWaterInitialTubes);
+  gWaterMoves=0; gWaterUndoStack=[]; gWaterSelected=null;
+  waterHideOverlay(); waterUpdateMovesDisplay(); waterRenderFull();
+}
+
+function waterStartLevel(level){
+  gWaterActive=true;
+  document.getElementById('water-board').innerHTML='<div class="water-loading">Shuffling tubes…</div>';
+  waterHideOverlay();
+  setTimeout(()=>{
+    const gen=waterGenerateLevel(level);
+    gWaterTubes=gen.tubes;
+    gWaterInitialTubes=waterCloneTubes(gen.tubes);
+    gWaterMoves=0; gWaterUndoStack=[]; gWaterSelected=null; gWaterLevel=level;
+    localStorage.setItem(WATER_LEVEL_KEY,String(level));
+    document.getElementById('water-level-num').textContent=level;
+    waterUpdateMovesDisplay();
+    waterRenderFull();
+  },30);
+}
+
+function openGameWater(){
+  gWaterActive=true;
+  show('s-water');
+  if(!gWaterTubes.length){
+    const saved=parseInt(localStorage.getItem(WATER_LEVEL_KEY)||'1',10);
+    waterStartLevel(saved>0?saved:1);
+  } else {
+    waterRenderFull();
+  }
+}
+
+let gWaterResizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(gWaterResizeTimer);
+  gWaterResizeTimer=setTimeout(()=>{
+    const scr=document.getElementById('s-water');
+    if(scr&&scr.classList.contains('on')&&!gWaterAnimating)waterRenderFull();
+  },200);
+});
+
+document.getElementById('mode-water').onclick=()=>openGameWater();
+document.getElementById('btn-back-water').onclick=()=>{gWaterActive=false;show('s-modes')};
+document.getElementById('btn-restart-water').onclick=()=>waterDoRestart();
+document.getElementById('btn-undo-water').onclick=()=>waterDoUndo();
+document.getElementById('btn-hint-water').onclick=()=>waterDoHint();
+document.getElementById('water-overlay-next').onclick=()=>waterStartLevel(gWaterLevel+1);
+document.getElementById('water-overlay-restart').onclick=()=>waterDoRestart();
 </script>
 </body>
 </html>
