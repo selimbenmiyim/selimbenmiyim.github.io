@@ -79,7 +79,7 @@ body.dark .soon-pill{background:#1a1917;color:#3a3a3a;border-color:#252422}
 /* DARK MODE TOGGLE */
 .top-controls{
   position:absolute;top:20px;right:20px;z-index:10;
-  display:flex;align-items:center;gap:8px}
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .btn-theme,
 .btn-privacy{
   height:42px;border-radius:12px;
@@ -123,22 +123,47 @@ body.dark .privacy-card p,
 body.dark .privacy-card li{color:#8a8a8a}
 
 .lang-switcher{
-  display:flex;align-items:center;gap:8px;position:relative;z-index:1;
-  padding:6px;border-radius:999px;background:rgba(255,255,255,.7);
+  position:relative;z-index:1;
+  display:inline-flex;align-items:center;
+  border-radius:999px;background:rgba(255,255,255,.7);
   border:1px solid rgba(232,228,221,.9);backdrop-filter:blur(4px)
 }
+.lang-trigger{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-width:94px;padding:8px 12px;border-radius:999px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.02em;text-transform:none;text-decoration:none;
+  color:#2d2d2a;background:transparent;border:none;cursor:pointer;
+  transition:background .2s,color .2s,transform .2s
+}
+.lang-trigger:hover,.lang-switcher:hover .lang-trigger{background:rgba(45,45,42,.06);transform:translateY(-1px)}
+.lang-menu{
+  position:absolute;top:calc(100% + 8px);left:0;
+  display:flex;flex-direction:column;gap:6px;
+  min-width:102px;padding:8px;border-radius:14px;
+  background:#fff;border:1px solid rgba(232,228,221,.9);
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .2s,visibility .2s,transform .2s;
+  pointer-events:none
+}
+.lang-switcher:hover .lang-menu,.lang-switcher:focus-within .lang-menu,.lang-switcher.open .lang-menu,
+.lang-menu:hover{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
 .lang-link{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:34px;padding:6px 10px;border-radius:999px;
-  font-family:'DM Mono',monospace;font-size:10px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;
+  width:100%;padding:8px 10px;border-radius:10px;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:0;text-transform:none;text-decoration:none;
   color:#6a6a6a;transition:background .2s,color .2s,transform .2s
 }
-.lang-link:hover{color:#2d2d2a;transform:translateY(-1px)}
+.lang-link:hover{background:rgba(124,100,216,.08);color:#2d2d2a;transform:translateY(-1px)}
 .lang-link.is-active{background:#2d2d2a;color:#fff;box-shadow:0 4px 10px rgba(45,45,42,.16)}
 body.dark .lang-switcher{background:rgba(30,29,27,.72);border-color:#2e2d2a}
+body.dark .lang-trigger{color:#e8e4dd}
+body.dark .lang-trigger:hover,.body.dark .lang-switcher:hover .lang-trigger{background:rgba(232,228,221,.08)}
+body.dark .lang-menu{background:#1e1d1b;border-color:#2e2d2a;box-shadow:0 12px 28px rgba(0,0,0,.35)}
 body.dark .lang-link{color:#9f9b95}
-body.dark .lang-link:hover{color:#e8e4dd}
+body.dark .lang-link:hover{background:rgba(124,100,216,.14);color:#e8e4dd}
 body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 @media(max-width:480px){
   .top-controls{top:16px;right:16px;gap:6px}
@@ -855,6 +880,13 @@ body.dark .water-overlay-title{color:#e8e4dd}
   <div class="intro-bg"><div class="grid-bg"></div></div>
 
   <div class="top-controls">
+    <div class="lang-switcher" aria-label="Language selector">
+      <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="menu" aria-expanded="false">Language</button>
+      <div class="lang-menu" role="menu">
+        <a class="lang-link is-active" href="index.html" aria-current="page" role="menuitem">English</a>
+        <a class="lang-link" href="tr.html" role="menuitem">Türkçe</a>
+      </div>
+    </div>
     <button class="btn-privacy" id="btn-privacy" aria-label="Open privacy policy">Privacy</button>
     <button class="btn-theme" id="btn-theme" aria-label="Toggle dark mode">
       <i data-lucide="moon" class="icon-moon"></i>
@@ -863,10 +895,6 @@ body.dark .water-overlay-title{color:#e8e4dd}
   </div>
 
   <div class="intro-content">
-    <div class="lang-switcher" aria-label="Language selector">
-      <a class="lang-link is-active" href="index.html" aria-current="page">EN</a>
-      <a class="lang-link" href="tr.html">TR</a>
-    </div>
     <div class="logo-tiles">
       <img src="images/Logo.svg" alt="Logo" style="max-width:450px;width:100%;height:auto;border-radius:14px;" />
     </div>
@@ -1092,7 +1120,9 @@ body.dark .water-overlay-title{color:#e8e4dd}
       <div class="logo-sm">LATTEM</div>
       <div class="try-info">Level <span id="water-level-num">1</span></div>
     </div>
-    <div style="width:36px"></div>
+    <button class="btn-back" id="btn-wipe-water" aria-label="Wipe progress and return to level 1">
+      <i data-lucide="trash-2" style="width:18px;height:18px;stroke-width:2.2"></i>
+    </button>
   </div>
 
   <div class="water-stats-bar">
@@ -1128,6 +1158,17 @@ body.dark .water-overlay-title{color:#e8e4dd}
       <div class="water-overlay-actions">
         <button class="btn-share" id="water-overlay-next">Next Level →</button>
         <button class="btn-howto" id="water-overlay-restart">Play Again</button>
+      </div>
+    </div>
+  </div>
+  <div class="water-overlay" id="water-confirm-overlay">
+    <div class="water-overlay-card">
+      <div class="water-overlay-emoji">⚠️</div>
+      <div class="water-overlay-title">Wipe Progress?</div>
+      <div class="water-overlay-sub">Are you sure? You will go back to level 1.</div>
+      <div class="water-overlay-actions">
+        <button class="btn-share" id="water-confirm-wipe-yes" style="background:#e8705b;border-color:#e8705b">Yes, Wipe</button>
+        <button class="btn-howto" id="water-confirm-wipe-no">Cancel</button>
       </div>
     </div>
   </div>
@@ -1557,6 +1598,20 @@ document.getElementById('btn-select-game').onclick=()=>show('s-modes');
 document.getElementById('btn-back-modes').onclick=()=>show('s-intro');
 document.getElementById('mode-wordle').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-back-wordle-select').onclick=()=>show('s-modes');
+
+const langSwitcher=document.querySelector('.lang-switcher');
+const langTrigger=document.getElementById('lang-trigger');
+if(langSwitcher&&langTrigger){
+  const toggleMenu=()=>{
+    const open=langSwitcher.classList.toggle('open');
+    langTrigger.setAttribute('aria-expanded',open?'true':'false');
+  };
+  langTrigger.addEventListener('click',e=>{e.stopPropagation();toggleMenu();});
+  langSwitcher.addEventListener('mouseenter',()=>{langTrigger.setAttribute('aria-expanded','true');langSwitcher.classList.add('open');});
+  langSwitcher.addEventListener('mouseleave',()=>{langTrigger.setAttribute('aria-expanded','false');langSwitcher.classList.remove('open');});
+  document.addEventListener('click',()=>{langSwitcher.classList.remove('open');langTrigger.setAttribute('aria-expanded','false');});
+  langSwitcher.addEventListener('click',e=>e.stopPropagation());
+}
 document.getElementById('mode-daily').onclick=()=>{gameType='daily';startGame()};
 document.getElementById('mode-limitless').onclick=()=>{gameType='limitless';startGame()};
 
@@ -1951,7 +2006,7 @@ document.getElementById('btn-back-2048') && (document.getElementById('btn-back-2
 document.getElementById('btn-new-2048') && (document.getElementById('btn-new-2048').onclick=()=>startGame2048());
 document.getElementById('m2048-overlay-keepgoing') && (document.getElementById('m2048-overlay-keepgoing').onclick=()=>g2048HideOverlay());
 document.getElementById('m2048-overlay-share') && (document.getElementById('m2048-overlay-share').onclick=()=>{
-  const text=`DUDE, have you seen Lattem 2048?? This is my score: ${g2048Score}! Can you beat me?\n${window.location.href}`;
+  const text=`Hey! I played 2048 on Lattem WHICH WAS SO FUN! This is my score: ${g2048Score}! Can you beat me?\n${window.location.href}`;
   if(navigator.share){
     navigator.share({text}).catch(()=>{});
   } else if(navigator.clipboard){
@@ -2361,6 +2416,18 @@ document.getElementById('btn-undo-water').onclick=()=>waterDoUndo();
 document.getElementById('btn-hint-water').onclick=()=>waterDoHint();
 document.getElementById('water-overlay-next').onclick=()=>waterStartLevel(gWaterLevel+1);
 document.getElementById('water-overlay-restart').onclick=()=>waterDoRestart();
+document.getElementById('btn-wipe-water').onclick=()=>{
+  if(gWaterAnimating||!gWaterActive)return;
+  document.getElementById('water-confirm-overlay').classList.add('show');
+};
+document.getElementById('water-confirm-wipe-no').onclick=()=>{
+  document.getElementById('water-confirm-overlay').classList.remove('show');
+};
+document.getElementById('water-confirm-wipe-yes').onclick=()=>{
+  document.getElementById('water-confirm-overlay').classList.remove('show');
+  localStorage.removeItem(WATER_LEVEL_KEY);
+  waterStartLevel(1);
+};
 </script>
 </body>
 </html>
