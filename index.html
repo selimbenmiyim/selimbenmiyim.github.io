@@ -391,11 +391,12 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 .cell.no{background:#e8e4dd;border-color:#d4d4ce;color:#a0a09a}
 
 #msg{
-  height:40px;display:flex;align-items:center;justify-content:center;
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(8px);
+  min-height:40px;padding:0 16px;display:flex;align-items:center;justify-content:center;
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#fff;
-  background:#7c64d8;border-radius:10px;margin:0 16px 12px;letter-spacing:.3px;
-  opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 4px 12px rgba(124,100,216,.3)}
-#msg.show{opacity:1;transform:none}
+  background:#7c64d8;border-radius:10px;letter-spacing:.3px;z-index:1200;
+  opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 4px 12px rgba(124,100,216,.3);width:min(92vw,360px)}
+#msg.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 .kb-wrap{width:100%;padding:4px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:5px}
 .kb-row{display:flex;gap:5px;justify-content:center}
@@ -1174,6 +1175,9 @@ body.dark .water-overlay-title{color:#e8e4dd}
   </div>
 </div>
 
+<!-- GLOBAL MESSAGE -->
+<div id="msg"></div>
+
 <!-- GAME -->
 <div id="s-game" class="scr">
   <div class="g-header">
@@ -1191,7 +1195,6 @@ body.dark .water-overlay-title{color:#e8e4dd}
     </div>
   </div>
   <div class="board-wrap"><div id="board"></div></div>
-  <div id="msg"></div>
   <div class="kb-wrap" id="kb-wrap"></div>
 </div>
 
@@ -2250,7 +2253,6 @@ function waterAnimatePour(srcIdx,dstIdx,color,amount,preSrcTopRun,preDstTopRun){
   const segH=gWaterMetrics.segHeight;
   const srcInner=document.getElementById('water-tube-inner-'+srcIdx);
   const dstInner=document.getElementById('water-tube-inner-'+dstIdx);
-  // column-reverse: lastElementChild = görsel üst = dökülen kısım
   if(srcInner&&srcInner.lastElementChild){
     const remaining=preSrcTopRun.count-amount;
     srcInner.lastElementChild.style.height=(remaining*segH)+'px';
