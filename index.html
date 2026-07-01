@@ -391,12 +391,11 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 .cell.no{background:#e8e4dd;border-color:#d4d4ce;color:#a0a09a}
 
 #msg{
-  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(8px);
-  min-height:40px;padding:0 16px;display:flex;align-items:center;justify-content:center;
+  height:40px;display:flex;align-items:center;justify-content:center;
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:#fff;
-  background:#7c64d8;border-radius:10px;letter-spacing:.3px;z-index:1200;
-  opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 4px 12px rgba(124,100,216,.3);width:min(92vw,360px)}
-#msg.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  background:#7c64d8;border-radius:10px;margin:0 16px 12px;letter-spacing:.3px;
+  opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 4px 12px rgba(124,100,216,.3)}
+#msg.show{opacity:1;transform:none}
 
 .kb-wrap{width:100%;padding:4px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:5px}
 .kb-row{display:flex;gap:5px;justify-content:center}
@@ -875,6 +874,12 @@ body.dark .water-overlay-title{color:#e8e4dd}
 <body>
 <audio id="ClickSound" src="sounds/Click.mp3" preload="auto"></audio>
 <audio id="HoverSound" src="sounds/Hover.mp3" preload="auto"></audio>
+<audio id="normal-button-click-sound" src="sounds/Click.mp3" preload="auto"></audio>
+<audio id="normal-button-hover-sound" src="sounds/Hover.mp3" preload="auto"></audio>
+<audio id="accent-button-click-sound" src="sounds/Click.mp3" preload="auto"></audio>
+<audio id="accent-button-hover-sound" src="sounds/Hover.mp3" preload="auto"></audio>
+<audio id="secondary-button-click-sound" src="sounds/Click.mp3" preload="auto"></audio>
+<audio id="secondary-button-hover-sound" src="sounds/Hover.mp3" preload="auto"></audio>
 
 <!-- Start Screen -->
 <div id="s-intro" class="scr on">
@@ -1175,9 +1180,6 @@ body.dark .water-overlay-title{color:#e8e4dd}
   </div>
 </div>
 
-<!-- GLOBAL MESSAGE -->
-<div id="msg"></div>
-
 <!-- GAME -->
 <div id="s-game" class="scr">
   <div class="g-header">
@@ -1195,6 +1197,7 @@ body.dark .water-overlay-title{color:#e8e4dd}
     </div>
   </div>
   <div class="board-wrap"><div id="board"></div></div>
+  <div id="msg"></div>
   <div class="kb-wrap" id="kb-wrap"></div>
 </div>
 
@@ -1658,16 +1661,40 @@ lucide.createIcons();
 const clickSound = document.getElementById('ClickSound');
 const hoverSound = document.getElementById('HoverSound');
 
-document.querySelectorAll('button').forEach(button => {
-  button.addEventListener('click', () => {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(e => console.log('Click sound play failed:', e));
-  });
+const soundProfiles = {
+  default: { click: clickSound, hover: hoverSound },
+  normal: {
+    click: document.getElementById('normal-button-click-sound'),
+    hover: document.getElementById('normal-button-hover-sound')
+  },
+  accent: {
+    click: document.getElementById('accent-button-click-sound'),
+    hover: document.getElementById('accent-button-hover-sound')
+  },
+  secondary: {
+    click: document.getElementById('secondary-button-click-sound'),
+    hover: document.getElementById('secondary-button-hover-sound')
+  }
+};
 
-  button.addEventListener('mouseenter', () => {
-    hoverSound.currentTime = 0;
-    hoverSound.play().catch(e => console.log('Hover sound play failed:', e));
-  });
+function getButtonSoundProfile(button) {
+  if (button.dataset.soundProfile) return button.dataset.soundProfile;
+  if (button.classList.contains('btn-play') || button.classList.contains('btn-select-game') || button.classList.contains('btn-howto') || button.classList.contains('btn-theme') || button.classList.contains('btn-privacy') || button.classList.contains('lang-trigger')) return 'normal';
+  if (button.classList.contains('btn-back') || button.classList.contains('btn-share') || button.classList.contains('mode-card') || button.classList.contains('water-action-btn')) return 'secondary';
+  return 'default';
+}
+
+function playButtonSound(button, type) {
+  const profile = soundProfiles[getButtonSoundProfile(button)] || soundProfiles.default;
+  const sound = profile[type];
+  if (!sound) return;
+  sound.currentTime = 0;
+  sound.play().catch(e => console.log(`${type} sound play failed:`, e));
+}
+
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', () => playButtonSound(button, 'click'));
+  button.addEventListener('mouseenter', () => playButtonSound(button, 'hover'));
 });
 const M2048_SIZE = 4;
 const M2048_BEST_KEY = 'lattem2048Best';
