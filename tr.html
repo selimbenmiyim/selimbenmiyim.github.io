@@ -2350,7 +2350,7 @@ function waterDoHint(){
   const result=waterSolve(waterCloneTubes(gWaterTubes),WATER_CAPACITY,{maxStates:8000,maxTimeMs:200});
   if(result.solvable===true&&result.path.length){
     const mv=result.path[0];
-    waterShowHintMessage(`Tüp ${mv.src+1} → Tüp ${mv.dst+1}'ye dene! `);
+    waterShowHintMessage(`Tüp ${mv.src+1} → Tüp ${mv.dst+1} dene! `);
     [mv.src,mv.dst].forEach(i=>{
       const el=document.getElementById('water-tube-'+i);
       if(el&&typeof el.animate==='function'){
