@@ -1564,7 +1564,6 @@ function startGame(){
     length=CFG.length;
     timeLimit=CFG.timeLimit;
   } else {
-    // Limitless mode'da rastgele kelime seç
     const allLengths=Object.keys(WORDS).map(Number);
     const randomLength=allLengths[Math.floor(Math.random()*allLengths.length)];
     const wordList=WORDS[randomLength];
@@ -1600,7 +1599,6 @@ document.addEventListener('keydown',e=>{
   handleKey(e.key);
 });
 
-// Navigation
 document.getElementById('btn-start-how').onclick=()=>show('s-wordle-select');
 document.getElementById('btn-howto').onclick=()=>show('s-how');
 document.getElementById('btn-back-how').onclick=()=>show('s-intro');
@@ -1886,11 +1884,11 @@ function g2048ShowOverlay(kind){
   if(kind==='win'){
     emoji.textContent='🎉';
     title.textContent='You reached 2048!';
-    sub.textContent=`Score: ${g2048Score} — keep going for a higher tile`;
+    sub.textContent=`Score: ${g2048Score} daha iyisini yapabilirsin!`;
     keepBtn.style.display='inline-flex';
   } else {
     emoji.textContent='😶';
-    title.textContent='No more moves';
+    title.textContent='daha fazla hamle yok';
     sub.textContent=`Final score: ${g2048Score}`;
     keepBtn.style.display='none';
   }
