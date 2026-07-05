@@ -789,17 +789,16 @@ body.dark .water-tube-lip{
   background:rgba(255,255,255,.04)}
 .water-tube.selected .water-tube-lip{border-color:rgba(124,100,216,.55)}
 
-/* Tüp gövdesi — cam efekti */
 .water-tube-inner{
   flex-shrink:0;
   position:relative;
   display:flex;
-  flex-direction:column-reverse;   /* first-child = görsel alt, last-child = görsel üst */
+  flex-direction:column-reverse; 
   overflow:hidden;
   border:2px solid rgba(140,130,170,.32);
   border-top:none;
-  border-radius:0 0 999px 999px;   /* test tüpü pill alt */
-  background:rgba(220,215,240,.14); /* hava boşluğu */
+  border-radius:0 0 999px 999px;  
+  background:rgba(220,215,240,.14); 
   box-shadow:inset 3px 0 8px rgba(255,255,255,.18),inset -1px 0 4px rgba(0,0,0,.06)}
 body.dark .water-tube-inner{
   border-color:rgba(255,255,255,.1);
@@ -809,13 +808,11 @@ body.dark .water-tube-inner{
   border-color:rgba(124,100,216,.55);
   box-shadow:inset 3px 0 8px rgba(255,255,255,.18),0 0 0 1px rgba(124,100,216,.3)}
 
-/* Renk bloğu — bir color-run = tek div, içinde gap yok */
 .water-run{
   width:100%;
   flex-shrink:0;
   transition:height .2s cubic-bezier(.4,0,.2,1)}
 
-/* Cam parlaması — tüp üzerine pseudo-element */
 .water-tube-inner::after{
   content:'';
   position:absolute;
@@ -870,6 +867,8 @@ body.dark .water-overlay-title{color:#e8e4dd}
   .water-action-bar{gap:6px;padding:4px 8px 6px}
   .water-action-btn{padding:6px 8px;font-size:10px}
   .water-hint-msg{font-size:11px}}
+  .mode-card--stack .mode-card__icon{background:#e8f4fb}
+body.dark .mode-card--stack .mode-card__icon{background:#1a252e}
 </style>
 </head>
 <body>
@@ -1023,6 +1022,17 @@ body.dark .water-overlay-title{color:#e8e4dd}
       </div>
       <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
     </button>
+    <button class="mode-card mode-card--stack" id="mode-stack" aria-label="Play Stack"
+        onclick="window.location.href='stack.html'">
+  <div class="mode-card__icon">
+        <img src="images/stackLogo.png" alt="Stack Logo" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
+      </div>
+  <div class="mode-card__info">
+    <div class="mode-card__name">Stack</div>
+    <div class="mode-card__desc">Drop blocks to build the tallest tower.</div>
+  </div>
+  <i data-lucide="chevron-right" class="mode-card__arrow" style="width:18px;height:18px;stroke-width:2.5"></i>
+</button>
 
     <!-- Coming Soon -->
     <div class="mode-card mode-card--soon" aria-disabled="true" style="cursor:not-allowed;">
