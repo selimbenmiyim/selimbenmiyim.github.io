@@ -11,7 +11,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 html,body{height:100%;height:100dvh;background:#fafaf8;color:#2d2d2a;font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow:hidden;touch-action:manipulation;transition:background .25s,color .25s}
 
-/* DARK MODE */
 body.dark{background:#111110;color:#e8e4dd}
 body.dark .scr{color:#e8e4dd}
 body.dark #s-intro{background:linear-gradient(135deg,#111110 0%,#1a1917 100%)}
@@ -76,7 +75,6 @@ body.dark .mode-card--soon .mode-card__name{color:#3a3a3a}
 body.dark .mode-card--soon .mode-card__icon{background:#1a1917;color:#2e2d2a}
 body.dark .soon-pill{background:#1a1917;color:#3a3a3a;border-color:#252422}
 
-/* DARK MODE TOGGLE */
 .top-controls{
   position:absolute;top:20px;right:20px;z-index:10;
   display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
@@ -352,7 +350,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
   color:#7c64d8;transform:translateX(3px)}
 
 /* game screen */
-#s-game{background:#fafaf8;justify-content:flex-start;gap:0}
+#s-game{background:#fafaf8;justify-content:flex-start;gap:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 .g-header{
   width:100%;max-width:500px;
@@ -375,7 +373,7 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
 #tmr-num.danger{color:#e8705b;animation:blink .45s ease infinite alternate}
 @keyframes blink{from{opacity:1}to{opacity:.4}}
 
-.board-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:14px 16px}
+.board-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px 16px}
 #board{display:flex;flex-direction:column;gap:6px}
 .b-row{display:grid;gap:6px}
 .cell{
@@ -398,8 +396,8 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
   opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 4px 12px rgba(124,100,216,.3);width:min(92vw,360px)}
 #msg.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.kb-wrap{width:100%;padding:4px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:5px}
-.kb-row{display:flex;gap:5px;justify-content:center}
+.kb-wrap{width:100%;padding:4px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0}
+.kb-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;row-gap:5px}
 .kkey{
   height:50px;min-width:34px;padding:0 6px;
   display:flex;align-items:center;justify-content:center;
@@ -635,7 +633,6 @@ body.dark .lang-link.is-active{background:#e8e4dd;color:#111110}
     border-width:1px;box-shadow:0 0 0 0.5px rgba(0,0,0,.08) inset
   }
 }
-/* ===== 2048 MODE (Lattem Games) — additive, does not modify any existing rule ===== */
 
 .mode-card--2048 .mode-card__icon{background:#fbf2e2}
 body.dark .mode-card--2048 .mode-card__icon{background:#2a2316}
@@ -734,7 +731,6 @@ body.dark .m2048-overlay-title{color:#e8e4dd}
 @media(max-width:360px){
   .m2048-hint{font-size:9px}
 }
-/* ===== WATER SORT MODE ===== */
 .mode-card--water .mode-card__icon{background:#e8f7f5}
 body.dark .mode-card--water .mode-card__icon{background:#1a2e2b}
 
@@ -767,7 +763,6 @@ body.dark .water-action-btn:hover{border-color:#7c64d8}
   width:100%;padding:8px 16px;overflow:hidden}
 #water-board{display:flex;flex-wrap:wrap;align-content:center;justify-content:center}
 
-/* Tüp: dış tutucu button */
 .water-tube{
   background:none;border:none;padding:0 4px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:0;
@@ -777,7 +772,6 @@ body.dark .water-action-btn:hover{border-color:#7c64d8}
 .water-tube:active{transform:scale(.96)}
 .water-tube.selected:active{transform:translateY(-14px) scale(.97)}
 
-/* Tüp ağzı */
 .water-tube-lip{
   flex-shrink:0;
   border:2px solid rgba(140,130,170,.32);
@@ -821,7 +815,6 @@ body.dark .water-tube-inner{
   background:linear-gradient(90deg,rgba(255,255,255,.14),transparent);
   pointer-events:none;z-index:2;border-radius:inherit}
 
-/* Overlay */
 .water-overlay{
   position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
   background:rgba(250,250,248,.9);
@@ -1325,9 +1318,9 @@ let{word,length,timeLimit}=CFG;
 document.getElementById('daily-info').textContent=`${length} letters · ${timeLimit}s`;
 
 const KB=[
-  ['Q','W','E','R','T','Y','U','I','O','P','Ğ','Ü'],
-  ['A','S','D','F','G','H','J','K','L','Ş','İ'],
-  ['ENTER','Z','X','C','V','B','N','M','Ö','Ç','⌫']
+  ['Q','W','E','R','T','Y','U','I','O','P'],
+  ['A','S','D','F','G','H','J','K','L'],
+  ['ENTER','Z','X','C','V','B','N','M','⌫']
 ];
 
 let crow=0,ccol=0,cguess=[],board=[],kstate={},
@@ -2031,7 +2024,6 @@ document.getElementById('m2048-overlay-share') && (document.getElementById('m204
 document.getElementById('m2048-overlay-newgame') && (document.getElementById('m2048-overlay-newgame').onclick=()=>startGame2048());
 
 g2048InitTouch();
-/* ===== WATER SORT MODE — fully additive, namespaced with water/Water prefixes ===== */
 const WATER_CAPACITY = 4;
 const WATER_LEVEL_KEY = 'lattemWaterLevel';
 const WATER_COLORS = ['#7c64d8','#42b8a8','#d4a555','#d97ba8','#4bb996','#e8705b','#5b8fd9','#e0915a','#a78bdb','#b85f72'];
